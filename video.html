@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHOS - 교육 영상</title>
-    <link rel="stylesheet" href="assets/style_v2.css">
+    <link rel="stylesheet" href="assets/style.css">
     <script src="assets/app.js"></script>
     <style>
         .video-box {
@@ -72,16 +72,43 @@
 
         /* 탭 이동 방지 팝업 모달 & 완료 팝업 모달 공통 */
         .modal-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);
-            display:none; justify-content:center; align-items:center; z-index:1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
+
         .modal-box {
-            background:white; border-radius:12px; padding:32px; width:480px; max-width:90%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1); text-align: center;
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            width: 480px;
+            max-width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
         }
-        .modal-box h3 { margin-top:0; color:var(--primary); margin-bottom:12px; font-size: 1.5rem; font-weight: 700; }
-        .modal-body { font-size:1.05rem; color:#4b5563; line-height:1.6; margin-bottom:24px; }
-        
+
+        .modal-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .modal-body {
+            font-size: 1.05rem;
+            color: #4b5563;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
         .complete-modal-content {
             background-color: #f0fcfa;
             border-radius: 8px;
@@ -149,7 +176,8 @@
         <div class="modal-box" style="padding:24px; width:400px;">
             <div style="font-size: 3rem; margin-bottom: 10px;">👀</div>
             <h3 style="font-size: 1.25rem;">앗! AI 윤리는 집중해서 들어야 해요</h3>
-            <div class="modal-body" style="font-size:1rem; margin-bottom:20px;">다른 탭으로 이동하여 영상이 일시정지되었습니다.<br>계속해서 집중해서 시청해주세요!</div>
+            <div class="modal-body" style="font-size:1rem; margin-bottom:20px;">다른 탭으로 이동하여 영상이 일시정지되었습니다.<br>계속해서 집중해서
+                시청해주세요!</div>
             <button class="btn btn-primary" style="width:100%;" onclick="closeBlurModal()">계속 시청하기</button>
         </div>
     </div>
@@ -159,24 +187,29 @@
         <div class="modal-box">
             <div style="margin-bottom: 20px;">
                 <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="32" cy="32" r="32" fill="#E8F4FE"/>
-                    <circle cx="32" cy="32" r="24" fill="#3B82F6"/>
-                    <path d="M23 33L29 39L42 25" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="32" cy="32" r="32" fill="#E8F4FE" />
+                    <circle cx="32" cy="32" r="24" fill="#3B82F6" />
+                    <path d="M23 33L29 39L42 25" stroke="white" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
             </div>
             <h3 style="color: #1f2937;">영상 학습 완료!</h3>
             <div class="modal-body" style="font-weight: 600; color: #4b5563;">
                 모든 교육 영상을 성공적으로 수강하셨습니다.
             </div>
-            
+
             <div class="complete-modal-content">
                 이제 실전 시나리오 시뮬레이터를 통해<br>
                 학습한 내용을 적용해보세요!<br>
-                <span style="color: #6b7280; font-size: 0.85rem; display: inline-block; margin-top: 8px;">5가지 임무 상황 중 1가지 랜덤 배정됩니다.</span>
+                <span style="color: #6b7280; font-size: 0.85rem; display: inline-block; margin-top: 8px;">5가지 임무 상황 중
+                    1가지 랜덤 배정됩니다.</span>
             </div>
 
-            <button class="btn btn-primary" style="width:100%; padding: 14px; font-size: 1.05rem; background-color: #8B5CF6; border-color: #8B5CF6;" onclick="goToSimulator()">챗봇 시뮬레이션 시작하기 →</button>
-            <div style="margin-top: 16px; font-size: 0.85rem; color: #9ca3af; text-decoration: underline; cursor: pointer;" onclick="closeCompleteModal()">영상을 다시 시청할래요</div>
+            <button class="btn btn-primary"
+                style="width:100%; padding: 14px; font-size: 1.05rem; background-color: #8B5CF6; border-color: #8B5CF6;"
+                onclick="goToSimulator()">챗봇 시뮬레이션 시작하기 →</button>
+            <div style="margin-top: 16px; font-size: 0.85rem; color: #9ca3af; text-decoration: underline; cursor: pointer;"
+                onclick="closeCompleteModal()">영상을 다시 시청할래요</div>
         </div>
     </div>
 
@@ -223,7 +256,7 @@
         const nextBtn = document.getElementById('next-btn');
 
         // 탭 이동 감지 로직
-        document.addEventListener("visibilitychange", function() {
+        document.addEventListener("visibilitychange", function () {
             if (document.hidden && !videoEl.paused && videoEl.style.display !== 'none') {
                 videoEl.pause();
                 document.getElementById('blurModal').style.display = 'flex';
@@ -298,7 +331,7 @@
             advanceTimer = setTimeout(() => {
                 console.log("10초 경과, 스킵 버튼 활성화 or 완료 모달 출력...");
                 videoEl.pause(); // Stop the current video
-                
+
                 if (vIdx === VIDEOS.length - 1) {
                     // 마지막 영상인 경우 완료 팝업 즉시 표시 제거, 버튼 활성화만 유지
                     localStorage.setItem('ethos_video_finished', 'true');
@@ -320,7 +353,7 @@
                 advanceTimer = null;
             }
             console.log("Video ended, enabling skip or complete modal...");
-            
+
             if (vIdx === VIDEOS.length - 1) {
                 // 마지막 영상이 끝난 경우 즉시 팝업 표시 제거, 버튼 활성화만
                 localStorage.setItem('ethos_video_finished', 'true');

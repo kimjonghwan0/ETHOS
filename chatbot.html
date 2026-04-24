@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHOS - 시나리오 시뮬레이터</title>
-    <link rel="stylesheet" href="assets/style_v2.css">
+    <link rel="stylesheet" href="assets/style.css">
     <script src="assets/app.js"></script>
     <style>
         .scenario-select {
@@ -190,15 +190,31 @@
         }
 
         @keyframes shake {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(10deg); background: #f0fdfa;}
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-10deg); background: #f0fdfa;}
-            100% { transform: rotate(0deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(10deg);
+                background: #f0fdfa;
+            }
+
+            50% {
+                transform: rotate(0deg);
+            }
+
+            75% {
+                transform: rotate(-10deg);
+                background: #f0fdfa;
+            }
+
+            100% {
+                transform: rotate(0deg);
+            }
         }
 
         .hint-anim {
-            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+            animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
             animation-iteration-count: 3;
             box-shadow: 0 0 10px rgba(0, 155, 132, 0.5);
         }
@@ -363,9 +379,11 @@
             .chat-container {
                 height: 500px;
             }
+
             .bubble {
                 max-width: 85%;
             }
+
             #hint-modal {
                 bottom: 80px;
                 right: 10px;
@@ -373,6 +391,7 @@
                 width: auto;
                 max-width: none;
             }
+
             .inner-content[style*="display: flex"] {
                 flex-direction: column !important;
             }
@@ -390,7 +409,8 @@
 
             <div class="page-content">
                 <h2 style="margin-bottom: 12px;">💬 시나리오 시뮬레이터</h2>
-                <div style="background-color: #f0fcf9; border: 1px solid #bfece4; border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: #009b84; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; width: 100%;">
+                <div
+                    style="background-color: #f0fcf9; border: 1px solid #bfece4; border-radius: 8px; padding: 12px 16px; margin-bottom: 24px; color: #009b84; font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; width: 100%;">
                     <span>💡</span>
                     이 모든 기록은 인사고과나 평가에 반영되지 않습니다. 자유롭게 의견을 나눠주세요.
                 </div>
@@ -415,10 +435,12 @@
                         <div class="inner-content" style="display: flex; gap: 24px; align-items: stretch;">
                             <!-- 좌측: 시나리오 이미지 -->
                             <div style="flex: 0 0 40%;">
-                                <img id="intro-img" class="scenario-illustration" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="시나리오 일러스트"
-                                    onerror="this.style.display='none'" style="height: 100%; object-fit: contain; margin: 0; background: transparent; border: none;">
+                                <img id="intro-img" class="scenario-illustration"
+                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                    alt="시나리오 일러스트" onerror="this.style.display='none'"
+                                    style="height: 100%; object-fit: contain; margin: 0; background: transparent; border: none;">
                             </div>
-                            
+
                             <!-- 우측: 텍스트 정보 -->
                             <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
                                 <div id="intro-title" class="scenario-main-title">로딩 중...</div>
@@ -428,13 +450,17 @@
                                         style="font-size: 0.85rem; color: #ef4444; margin: 0; line-height: 1.4;"></p>
                                 </div>
                                 <!-- 인용 메시지 먼저 -->
-                                <div style="margin-bottom: 16px; background:#f8fafc; border-left:3px solid var(--primary); border-radius:0 8px 8px 0; padding:14px 16px;">
-                                    <div id="intro-quote" style="font-size:0.9rem; color:#1e293b; line-height:1.7; white-space:pre-line;"></div>
+                                <div
+                                    style="margin-bottom: 16px; background:#f8fafc; border-left:3px solid var(--primary); border-radius:0 8px 8px 0; padding:14px 16px;">
+                                    <div id="intro-quote"
+                                        style="font-size:0.9rem; color:#1e293b; line-height:1.7; white-space:pre-line;">
+                                    </div>
                                 </div>
                                 <!-- 상황 설명 뒤에 -->
                                 <div>
                                     <span class="desc-label label-blue">상황 소개</span>
-                                    <p id="intro-desc" class="scenario-description" style="margin: 0; white-space:pre-line;"></p>
+                                    <p id="intro-desc" class="scenario-description"
+                                        style="margin: 0; white-space:pre-line;"></p>
                                 </div>
                             </div>
                         </div>
@@ -459,7 +485,8 @@
                             </div>
                             <div style="margin-bottom: 20px;">
                                 <span class="desc-label" style="background:#ede9fe; color:#6d28d9;">소개</span>
-                                <p id="intro-bio" style="font-size: 0.9rem; color: #4b5563; margin: 6px 0 0; line-height: 1.6;"></p>
+                                <p id="intro-bio"
+                                    style="font-size: 0.9rem; color: #4b5563; margin: 6px 0 0; line-height: 1.6;"></p>
                             </div>
                             <div style="margin-bottom: 20px;">
                                 <span class="desc-label label-green">성격 유형</span>
@@ -482,9 +509,13 @@
                             </div>
 
                             <!-- KISDI Connection Card -->
-                            <div style="margin-top: 16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:16px; font-size:0.9rem;">
-                                <span style="color:#166534; font-weight:bold; display:flex; align-items:center; gap:6px;">🔗 KISDI 연결</span>
-                                <span id="intro-kisdi-summary" style="color:#15803d; margin-top:6px; display:inline-block; line-height: 1.4;">-</span>
+                            <div
+                                style="margin-top: 16px; background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:16px; font-size:0.9rem;">
+                                <span
+                                    style="color:#166534; font-weight:bold; display:flex; align-items:center; gap:6px;">🔗
+                                    KISDI 연결</span>
+                                <span id="intro-kisdi-summary"
+                                    style="color:#15803d; margin-top:6px; display:inline-block; line-height: 1.4;">-</span>
                             </div>
                         </div>
                     </div>
@@ -496,9 +527,13 @@
 
                 <!-- Active Chat Phase -->
                 <div id="sim-active">
-                    <div style="background: #f8fafc; border-left: 4px solid var(--primary); border-radius: 4px; padding: 16px 20px; margin-bottom: 20px;">
-                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 8px; font-size: 0.9rem;">시나리오 배경 텍스트</div>
-                        <div id="active-scenario-desc" style="font-size: 0.95rem; color: #4b5563; line-height: 1.6; white-space: pre-line;">로딩 중...</div>
+                    <div
+                        style="background: #f8fafc; border-left: 4px solid var(--primary); border-radius: 4px; padding: 16px 20px; margin-bottom: 20px;">
+                        <div style="font-weight: 700; color: var(--primary); margin-bottom: 8px; font-size: 0.9rem;">
+                            시나리오 배경 텍스트</div>
+                        <div id="active-scenario-desc"
+                            style="font-size: 0.95rem; color: #4b5563; line-height: 1.6; white-space: pre-line;">로딩 중...
+                        </div>
                     </div>
 
                     <div class="chat-container">
@@ -543,9 +578,12 @@
                 <!-- Result Phase -->
                 <div id="sim-result" class="card">
                     <h2 id="res-title" style="margin-bottom: 16px;">결과</h2>
-                    <div id="game-badge" style="display:none; text-align:center; font-size:4rem; margin-bottom:10px;"></div>
-                    <div id="game-comment" style="display:none; text-align:center; font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:16px;"></div>
-                    
+                    <div id="game-badge" style="display:none; text-align:center; font-size:4rem; margin-bottom:10px;">
+                    </div>
+                    <div id="game-comment"
+                        style="display:none; text-align:center; font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:16px;">
+                    </div>
+
                     <p id="res-desc" style="color:#6b7280; margin-bottom:24px;"></p>
                     <div id="res-hints" style="margin-bottom:20px; font-weight:600; font-size:0.95rem;"></div>
                     <div style="display:flex; justify-content:center; gap:16px;">
@@ -1080,7 +1118,7 @@ CRITICAL RULES (apply to ALL scenarios):
         }
 
         function triggerHintAnim() {
-            if(document.getElementById('sim-result').style.display === 'block') return;
+            if (document.getElementById('sim-result').style.display === 'block') return;
             const btn = document.getElementById('hint-btn-main');
             btn.classList.add('hint-anim');
             setTimeout(() => {
@@ -1090,8 +1128,8 @@ CRITICAL RULES (apply to ALL scenarios):
 
         function resetHintTimer() {
             if (hintTimer) clearTimeout(hintTimer);
-            if(document.getElementById('sim-result').style.display === 'block') return;
-            
+            if (document.getElementById('sim-result').style.display === 'block') return;
+
             // 30초 대기 시 힌트 아이콘 애니메이션
             hintTimer = setTimeout(triggerHintAnim, 30000);
         }
