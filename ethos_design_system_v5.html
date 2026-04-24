@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETHOS Design System v5</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════
+   ETHOS DESIGN SYSTEM v5
+   "Aurora Editorial" — Light, Legible, Alive
+   ════════════════════════════════════════════ */
+
+:root {
+  /* ── BRAND PALETTE (from logo) ── */
+  --c-lavender:     #D4B8F5;
+  --c-lavender-mid: #BC9EED;
+  --c-lavender-deep:#9B78DC;
+  --c-mint:         #92EDD4;
+  --c-mint-mid:     #6BDCBE;
+  --c-mint-deep:    #44C4A2;
+  --c-teal:         #7DCEF5;
+  --c-teal-mid:     #52B9ED;
+  --c-teal-deep:    #2E9DD4;
+  --c-rose:         #F5C2D8;
+
+  /* ── NEUTRAL SCALE ── */
+  --c-bg:           #F8F9FA;
+  --c-surface:      #FFFFFF;
+  --c-surface-2:    #F2F4F7;
+  --c-surface-3:    #E8ECF2;
+  --c-border:       rgba(0,0,0,0.07);
+  --c-border-mid:   rgba(0,0,0,0.12);
+
+  --c-ink-900:      #0E0E18;
+  --c-ink-700:      #2A2A3E;
+  --c-ink-500:      #5A5A78;
+  --c-ink-300:      #9494B0;
+  --c-ink-100:      #D0D0E0;
+
+  /* ── SEMANTIC ── */
+  --c-primary:      var(--c-lavender-deep);
+  --c-success:      var(--c-mint-deep);
+  --c-info:         var(--c-teal-deep);
+  --c-warn:         #F5A623;
+  --c-error:        #E85555;
+
+  /* ── GRADIENTS ── */
+  --grad-logo:       linear-gradient(135deg, #D4B8F5 0%, #92EDD4 55%, #7DCEF5 100%);
+  --grad-orb-main:   radial-gradient(circle at 40% 40%, #D4B8F5 0%, #92EDD4 45%, #7DCEF5 100%);
+  --grad-orb-warm:   radial-gradient(circle at 40% 40%, #F5C2D8 0%, #D4B8F5 60%, #92EDD4 100%);
+  --grad-orb-cool:   radial-gradient(circle at 40% 40%, #7DCEF5 0%, #92EDD4 60%, #D4B8F5 100%);
+  --grad-step-1:     linear-gradient(135deg, rgba(212,184,245,0.18) 0%, rgba(212,184,245,0.06) 100%);
+  --grad-step-2:     linear-gradient(135deg, rgba(146,237,212,0.18) 0%, rgba(146,237,212,0.06) 100%);
+  --grad-step-3:     linear-gradient(135deg, rgba(125,206,245,0.18) 0%, rgba(125,206,245,0.06) 100%);
+  --grad-step-4:     linear-gradient(135deg, rgba(245,194,216,0.18) 0%, rgba(245,194,216,0.06) 100%);
+  --grad-step-5:     linear-gradient(135deg, rgba(155,120,220,0.14) 0%, rgba(125,206,245,0.08) 100%);
+
+  --grad-card-lav:   linear-gradient(145deg, rgba(212,184,245,0.15) 0%, rgba(255,255,255,0) 60%);
+  --grad-card-mint:  linear-gradient(145deg, rgba(146,237,212,0.15) 0%, rgba(255,255,255,0) 60%);
+  --grad-card-teal:  linear-gradient(145deg, rgba(125,206,245,0.15) 0%, rgba(255,255,255,0) 60%);
+
+  /* ── TYPOGRAPHY ── */
+  --f-sans:   'Pretendard', -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --f-serif:  'DM Serif Display', 'Georgia', serif;
+  --f-mono:   'JetBrains Mono', 'Fira Code', monospace;
+
+  --t-hero:   clamp(2.8rem, 5.5vw, 4.8rem);
+  --t-h1:     clamp(2rem, 3.5vw, 3rem);
+  --t-h2:     clamp(1.5rem, 2.5vw, 2rem);
+  --t-h3:     1.25rem;
+  --t-body:   1rem;
+  --t-sm:     0.875rem;
+  --t-xs:     0.75rem;
+  --t-2xs:    0.6875rem;
+  --t-label:  0.6875rem;
+  --t-num:    clamp(4rem, 8vw, 8rem);
+
+  /* ── SPACING ── */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px;
+  --s-8:32px; --s-10:40px; --s-12:48px; --s-16:64px; --s-20:80px; --s-24:96px;
+
+  /* ── RADIUS ── */
+  --r-sm:6px; --r-md:12px; --r-lg:16px; --r-xl:20px; --r-2xl:28px; --r-full:9999px;
+
+  /* ── SHADOW ── */
+  --sh-xs:  0 1px 4px rgba(0,0,0,0.06);
+  --sh-sm:  0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+  --sh-md:  0 4px 20px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --sh-lg:  0 8px 40px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05);
+  --sh-orb-lav:  0 0 60px rgba(212,184,245,0.5), 0 0 120px rgba(212,184,245,0.25);
+  --sh-orb-mint: 0 0 60px rgba(146,237,212,0.5), 0 0 120px rgba(146,237,212,0.25);
+  --sh-orb-teal: 0 0 60px rgba(125,206,245,0.5), 0 0 120px rgba(125,206,245,0.25);
+
+  /* ── TIMING ── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast:120ms; --dur-base:200ms; --dur-slow:360ms;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; background: #EBF0F5; }
+body {
+  font-family: var(--f-sans);
+  background: transparent;
+  color: var(--c-ink-700);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  padding: 32px 40px;
+}
+
+/* ── PAGE SCAFFOLD ── */
+.page { 
+  max-width: 1440px; 
+  margin: 0 auto; 
+  padding: 64px 80px 120px; 
+  background: var(--c-surface);
+  border-radius: 24px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.section { 
+  margin-bottom: var(--s-24); /* ETHOS_v3-hyeree 적용 기준: 섹션 간 간격은 96px(var(--s-24)) 여백 적용 */
+}
+.section-label {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  color: var(--c-ink-300);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: var(--s-3);
+}
+.section-title {
+  font-size: var(--t-h2);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  margin-bottom: var(--s-2);
+  line-height: 1.2;
+}
+.section-desc {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  max-width: 520px;
+  margin-bottom: var(--s-10);
+}
+hr.divider {
+  border: none;
+  height: 1px;
+  background: var(--c-border);
+  margin: var(--s-8) 0;
+}
+
+/* ══════════════════════════════════════════
+   SECTION 00 — HERO / COVER
+   ══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+  min-height: 480px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: var(--sh-md);
+  margin-bottom: var(--s-20);
+}
+.hero-left {
+  position: relative;
+  z-index: 2;
+  padding: 52px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.hero-wordmark {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  margin-bottom: var(--s-12);
+}
+.hero-wordmark-orb {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--grad-orb-main);
+  flex-shrink: 0;
+  box-shadow: var(--sh-orb-lav);
+}
+.hero-wordmark-name {
+  font-family: var(--f-serif);
+  font-size: 1.1rem;
+  color: var(--c-ink-900);
+  letter-spacing: 0.04em;
+}
+.hero-headline {
+  font-family: var(--f-sans);
+  font-size: var(--t-hero);
+  font-weight: 800;
+  color: var(--c-ink-900);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s-5);
+}
+.hero-headline em {
+  font-style: normal;
+  background: var(--grad-logo);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  max-width: 320px;
+  line-height: 1.7;
+  margin-bottom: var(--s-8);
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 6px 14px;
+  background: rgba(155,120,220,0.1);
+  border: 1px solid rgba(155,120,220,0.2);
+  border-radius: var(--r-full);
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-lavender-deep);
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+.hero-right {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--s-8);
+}
+.hero-orb-wrap {
+  position: relative;
+  width: 280px;
+  height: 280px;
+}
+.hero-orb-main {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: var(--grad-orb-main);
+  box-shadow: var(--sh-orb-lav);
+  animation: orb-float 6s ease-in-out infinite;
+}
+.hero-orb-ring {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  border: 1px solid rgba(212,184,245,0.3);
+  animation: orb-ring 8s linear infinite;
+}
+.hero-orb-ring-2 {
+  position: absolute;
+  inset: -42px;
+  border-radius: 50%;
+  border: 1px solid rgba(146,237,212,0.2);
+  animation: orb-ring 12s linear infinite reverse;
+}
+@keyframes orb-float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes orb-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ══════════════════════════════════════════
+   SECTION 01 — COLOR TOKENS
+   ══════════════════════════════════════════ */
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--s-3);
+}
+.color-chip {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--c-surface);
+  box-shadow: var(--sh-xs);
+  border: 1px solid var(--c-border);
+}
+.color-chip-swatch {
+  height: 72px;
+}
+.color-chip-info {
+  padding: var(--s-3) var(--s-4);
+}
+.color-chip-name {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-ink-700);
+  margin-bottom: 2px;
+}
+.color-chip-hex {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+}
+
+.grad-strip {
+  height: 80px;
+  border-radius: var(--r-lg);
+  margin-bottom: var(--s-3);
+  box-shadow: var(--sh-sm);
+}
+.grad-label {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-500);
+}
+.grad-row { display: flex; gap: var(--s-4); flex-wrap: wrap; }
+.grad-item { flex: 1; min-width: 180px; }
+
+/* ══════════════════════════════════════════
+   SECTION 02 — TYPOGRAPHY
+   ══════════════════════════════════════════ */
+.type-showcase {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-12);
+  box-shadow: var(--sh-sm);
+  border: 1px solid var(--c-border);
+  margin-bottom: var(--s-6);
+}
+.type-hero-demo {
+  font-size: var(--t-hero);
+  font-weight: 800;
+  color: var(--c-ink-900);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: var(--s-4);
+}
+.type-hero-demo .grad-text {
+  background: var(--grad-logo);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.type-scale-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-6);
+  padding: var(--s-4) 0;
+  border-bottom: 1px solid var(--c-border);
+}
+.type-scale-row:last-child { border-bottom: none; }
+.type-meta {
+  flex-shrink: 0;
+  width: 120px;
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+}
+.type-sample { color: var(--c-ink-700); }
+.t-display   { font-size: var(--t-hero); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
+.t-h1        { font-size: var(--t-h1); font-weight: 700; letter-spacing: -0.02em; }
+.t-h2        { font-size: var(--t-h2); font-weight: 700; }
+.t-h3        { font-size: var(--t-h3); font-weight: 600; }
+.t-body      { font-size: var(--t-body); font-weight: 400; }
+.t-small     { font-size: var(--t-sm); color: var(--c-ink-500); }
+.t-caption   { font-size: var(--t-xs); color: var(--c-ink-300); font-family: var(--f-mono); }
+.t-num-big   { font-size: var(--t-num); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--c-ink-900); }
+
+/* ══════════════════════════════════════════
+   SECTION 03 — ORB / SYMBOL SYSTEM
+   ══════════════════════════════════════════ */
+.orb-showcase {
+  display: flex;
+  gap: var(--s-12);
+  align-items: center;
+  flex-wrap: wrap;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-12);
+  box-shadow: var(--sh-sm);
+  border: 1px solid var(--c-border);
+  margin-bottom: var(--s-8);
+}
+.orb-item { text-align: center; }
+.orb {
+  border-radius: 50%;
+  display: inline-block;
+  animation: orb-float 6s ease-in-out infinite;
+}
+.orb-xl { width: 120px; height: 120px; }
+.orb-lg { width: 80px; height: 80px; animation-delay: 1s; }
+.orb-md { width: 56px; height: 56px; animation-delay: 2s; }
+.orb-sm { width: 36px; height: 36px; animation-delay: 0.5s; }
+.orb-xs { width: 20px; height: 20px; animation-delay: 1.5s; }
+.orb-main   { background: var(--grad-orb-main);   box-shadow: var(--sh-orb-lav); }
+.orb-warm   { background: var(--grad-orb-warm);   box-shadow: var(--sh-orb-lav); }
+.orb-cool   { background: var(--grad-orb-cool);   box-shadow: var(--sh-orb-teal); }
+.orb-lav    { background: radial-gradient(circle at 35% 35%, #D4B8F5, #9B78DC); box-shadow: 0 0 40px rgba(155,120,220,0.4); }
+.orb-mint   { background: radial-gradient(circle at 35% 35%, #A8F0DC, #44C4A2); box-shadow: 0 0 40px rgba(68,196,162,0.4); }
+.orb-teal   { background: radial-gradient(circle at 35% 35%, #A8DCF5, #2E9DD4); box-shadow: 0 0 40px rgba(46,157,212,0.35); }
+.orb-label {
+  margin-top: var(--s-3);
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+}
+
+/* Symbol Icons */
+.symbol-grid {
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.symbol-icon {
+  width: 48px; height: 48px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  transition: transform var(--dur-base) var(--ease-spring);
+}
+.symbol-icon:hover { transform: scale(1.12) translateY(-2px); }
+.sym-lav  { background: rgba(212,184,245,0.2); }
+.sym-mint { background: rgba(146,237,212,0.2); }
+.sym-teal { background: rgba(125,206,245,0.2); }
+.sym-rose { background: rgba(245,194,216,0.2); }
+
+/* ══════════════════════════════════════════
+   SECTION 04 — CARDS
+   ══════════════════════════════════════════ */
+
+/* Value Card (ref: Image 6) */
+.value-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-4);
+  margin-bottom: var(--s-8);
+}
+.value-card {
+  background: var(--c-surface-2);
+  border-radius: var(--r-xl);
+  padding: var(--s-8) var(--s-6) var(--s-6);
+  border: 1px solid var(--c-border);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-5);
+}
+.value-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--sh-md);
+}
+.value-card-orb-wrap {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.value-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--c-ink-900);
+  line-height: 1.25;
+}
+.value-card p {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  line-height: 1.7;
+}
+
+/* Feature Card (ref: Image 12) */
+.feature-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--s-4);
+}
+.feature-card {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-6);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--sh-xs);
+  transition: all var(--dur-base) var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+}
+.feature-card:hover {
+  box-shadow: var(--sh-md);
+  transform: translateY(-2px);
+  border-color: rgba(155,120,220,0.2);
+}
+.feature-card-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.feature-card-icon {
+  width: 40px; height: 40px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.feature-card-arrow {
+  width: 28px; height: 28px;
+  border-radius: var(--r-full);
+  background: var(--c-surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--c-ink-300);
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.feature-card:hover .feature-card-arrow {
+  background: var(--c-lavender-deep);
+  color: white;
+}
+.feature-card h4 {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  line-height: 1.3;
+}
+.feature-card p {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  line-height: 1.65;
+  flex: 1;
+}
+.feature-card-cta {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-lavender-deep);
+  cursor: pointer;
+  letter-spacing: 0.02em;
+}
+
+/* Stat Card (ref: Image 4/5) */
+.stat-card-row {
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+}
+.stat-card {
+  flex: 1;
+  min-width: 160px;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-6) var(--s-8);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--sh-xs);
+}
+.stat-num {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: var(--s-2);
+}
+.stat-label {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  font-weight: 500;
+}
+
+/* Stacked Gradient Cards (ref: Image 7) */
+.stacked-cards {
+  position: relative;
+  width: 320px;
+  height: 220px;
+  margin: var(--s-8) auto;
+}
+.stacked-card {
+  position: absolute;
+  width: 100%;
+  border-radius: var(--r-xl);
+  padding: var(--s-6);
+  box-shadow: var(--sh-md);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.stacked-card:nth-child(1) {
+  background: linear-gradient(135deg, rgba(212,184,245,0.4) 0%, rgba(146,237,212,0.3) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,184,245,0.4);
+  top: 32px; left: 24px; right: 0;
+  z-index: 1;
+}
+.stacked-card:nth-child(2) {
+  background: linear-gradient(135deg, rgba(212,184,245,0.55) 0%, rgba(245,194,216,0.35) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,184,245,0.5);
+  top: 16px; left: 12px; right: -12px;
+  z-index: 2;
+}
+.stacked-card:nth-child(3) {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,235,255,0.9) 100%);
+  border: 1px solid rgba(212,184,245,0.3);
+  top: 0; left: 0; right: -24px;
+  z-index: 3;
+}
+.stacked-card-num {
+  font-size: var(--t-xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-500);
+  margin-bottom: var(--s-3);
+}
+.stacked-card-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  margin-bottom: var(--s-2);
+}
+.stacked-card-desc {
+  font-size: var(--t-xs);
+  color: var(--c-ink-500);
+}
+
+/* Schedule Card (ref: Image 14) */
+.schedule-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-3);
+  max-width: 380px;
+}
+.schedule-card {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  border: 1.5px dashed var(--c-border-mid);
+  padding: var(--s-4) var(--s-5);
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.schedule-card:hover {
+  border-color: var(--c-lavender-mid);
+  box-shadow: var(--sh-sm);
+}
+.schedule-accent {
+  width: 4px;
+  height: 40px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.schedule-meta {
+  flex: 1;
+}
+.schedule-date {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+.schedule-name {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--c-ink-900);
+}
+.schedule-time {
+  font-size: var(--t-xs);
+  color: var(--c-ink-500);
+}
+.schedule-chip {
+  font-size: var(--t-2xs);
+  font-weight: 600;
+  font-family: var(--f-mono);
+  padding: 3px 8px;
+  border-radius: var(--r-full);
+}
+
+/* ══════════════════════════════════════════
+   SECTION 05 — STEP / PROGRESS UI
+   (Key Pattern: ETHOS Learning Flow)
+   ══════════════════════════════════════════ */
+
+/* Horizontal Step Flow (ref: Image 15 wave) */
+.step-flow {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  padding: var(--s-8) 0 var(--s-12);
+  margin-bottom: var(--s-8);
+}
+.step-flow::before {
+  content: '';
+  position: absolute;
+  top: 52px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--c-lavender-mid), var(--c-mint-mid), var(--c-teal-mid), var(--c-lavender-mid), var(--c-mint-mid));
+  background-size: 200% 100%;
+  animation: grad-move 4s linear infinite;
+}
+@keyframes grad-move {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 200% 0%; }
+}
+.step-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-4);
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+.step-item:nth-child(even) { padding-top: var(--s-8); }
+.step-node {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  border: 2px solid transparent;
+  transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base);
+  background: var(--c-surface);
+  box-shadow: var(--sh-sm);
+}
+.step-item:hover .step-node { transform: scale(1.12); }
+.step-node-1 { background: rgba(212,184,245,0.2); border-color: var(--c-lavender-mid); color: var(--c-lavender-deep); }
+.step-node-2 { background: rgba(146,237,212,0.2); border-color: var(--c-mint-mid);    color: var(--c-mint-deep); }
+.step-node-3 { background: rgba(125,206,245,0.2); border-color: var(--c-teal-mid);    color: var(--c-teal-deep); }
+.step-node-4 { background: rgba(245,194,216,0.2); border-color: var(--c-rose);        color: #D4628A; }
+.step-node-5 { background: rgba(155,120,220,0.15);border-color: var(--c-lavender-deep);color: var(--c-lavender-deep); }
+.step-node.active {
+  background: var(--grad-logo);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 4px 20px rgba(155,120,220,0.4);
+}
+.step-label {
+  text-align: center;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-ink-500);
+  max-width: 90px;
+  line-height: 1.4;
+}
+.step-item.active .step-label { color: var(--c-lavender-deep); }
+
+/* Vertical Step List (ref: Image 3 zigzag) */
+.step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: var(--s-4);
+}
+.step-list-item {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: var(--s-5);
+  position: relative;
+}
+.step-list-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 25px;
+  top: 52px;
+  bottom: -8px;
+  width: 2px;
+  background: linear-gradient(180deg, var(--c-lavender-mid), var(--c-mint-mid));
+  opacity: 0.4;
+}
+.step-list-node {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  flex-shrink: 0;
+  border: 1px solid var(--c-border);
+}
+.step-list-body {
+  padding: var(--s-3) 0 var(--s-10) 0;
+}
+.step-list-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-size: var(--t-2xs);
+  font-weight: 600;
+  margin-bottom: var(--s-3);
+}
+.step-list-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  margin-bottom: var(--s-2);
+}
+.step-list-desc {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  line-height: 1.7;
+  margin-bottom: var(--s-4);
+}
+.step-list-checks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+}
+.step-list-check {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+}
+.check-dot {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: white;
+}
+
+/* Numbered Cards (ref: Image 2) */
+.numbered-card-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  position: relative;
+}
+.numbered-card-group::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  top: var(--s-8);
+  bottom: var(--s-8);
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--c-lavender-mid), var(--c-mint-mid), var(--c-teal-mid), transparent);
+  opacity: 0.5;
+}
+.numbered-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--s-5);
+  padding: var(--s-6) var(--s-6) var(--s-6) var(--s-5);
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--sh-xs);
+  position: relative;
+  z-index: 1;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.numbered-card.featured {
+  box-shadow: var(--sh-md);
+  border-color: rgba(155,120,220,0.2);
+  transform: scale(1.01);
+}
+.numbered-card:hover {
+  box-shadow: var(--sh-md);
+  transform: translateX(4px);
+}
+.numbered-card-num {
+  width: 48px; height: 48px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-mono);
+  font-weight: 700;
+  font-size: var(--t-sm);
+  flex-shrink: 0;
+}
+.numbered-card-content h4 {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  margin-bottom: var(--s-2);
+}
+.numbered-card-content p {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  line-height: 1.7;
+}
+.big-label {
+  font-size: clamp(5rem, 12vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  color: var(--c-ink-900);
+  position: absolute;
+  right: var(--s-8);
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════
+   SECTION 06 — BUTTONS
+   ══════════════════════════════════════════ */
+.btn-showcase {
+  display: flex;
+  gap: var(--s-4);
+  flex-wrap: wrap;
+  align-items: center;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-8);
+  box-shadow: var(--sh-sm);
+  border: 1px solid var(--c-border);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--s-2);
+  padding: 10px 22px;
+  border-radius: var(--r-full);
+  font-family: var(--f-sans);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--dur-base) var(--ease-out);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+}
+.btn-primary {
+  background: var(--c-ink-900);
+  color: white;
+}
+.btn-primary:hover {
+  background: var(--c-ink-700);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(14,14,24,0.25);
+}
+.btn-grad {
+  background: var(--grad-logo);
+  color: white;
+}
+.btn-grad:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(155,120,220,0.4);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--c-ink-700);
+  border: 1.5px solid var(--c-border-mid);
+}
+.btn-outline:hover {
+  border-color: var(--c-lavender-deep);
+  color: var(--c-lavender-deep);
+}
+.btn-ghost {
+  background: rgba(155,120,220,0.08);
+  color: var(--c-lavender-deep);
+}
+.btn-ghost:hover { background: rgba(155,120,220,0.15); }
+.btn-sm { padding: 6px 14px; font-size: var(--t-xs); }
+.btn-lg { padding: 14px 32px; font-size: 1rem; }
+.btn-icon {
+  width: 40px; height: 40px; padding: 0;
+  border-radius: 50%;
+  background: var(--c-ink-900);
+  color: white;
+}
+.btn-icon:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(14,14,24,0.2);
+}
+
+/* ══════════════════════════════════════════
+   SECTION 07 — TAGS / CHIPS / BADGES
+   ══════════════════════════════════════════ */
+.chip-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-8);
+  box-shadow: var(--sh-sm);
+  border: 1px solid var(--c-border);
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 5px 14px;
+  border-radius: var(--r-full);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform var(--dur-fast), box-shadow var(--dur-fast);
+  border: 1px solid transparent;
+}
+.chip:hover { transform: translateY(-1px); box-shadow: var(--sh-sm); }
+.chip-lav   { background: rgba(212,184,245,0.2); color: var(--c-lavender-deep); border-color: rgba(212,184,245,0.4); }
+.chip-mint  { background: rgba(146,237,212,0.2); color: var(--c-mint-deep); border-color: rgba(146,237,212,0.4); }
+.chip-teal  { background: rgba(125,206,245,0.2); color: var(--c-teal-deep); border-color: rgba(125,206,245,0.4); }
+.chip-rose  { background: rgba(245,194,216,0.2); color: #C44A7A; border-color: rgba(245,194,216,0.4); }
+.chip-dark  { background: var(--c-ink-900); color: white; }
+.chip-outline { background: transparent; color: var(--c-ink-500); border-color: var(--c-border-mid); }
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--r-full);
+  font-size: var(--t-2xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.badge-new    { background: rgba(212,184,245,0.25); color: var(--c-lavender-deep); }
+.badge-live   { background: rgba(146,237,212,0.25); color: var(--c-mint-deep); }
+.badge-warn   { background: rgba(245,166,35,0.18);  color: #C47A00; }
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+/* ══════════════════════════════════════════
+   SECTION 08 — FORM ELEMENTS
+   ══════════════════════════════════════════ */
+.form-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-6);
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-10);
+  box-shadow: var(--sh-sm);
+  border: 1px solid var(--c-border);
+}
+.form-field { display: flex; flex-direction: column; gap: var(--s-2); }
+.form-label {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-ink-700);
+  letter-spacing: 0.02em;
+}
+.form-input {
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--c-border-mid);
+  background: var(--c-surface);
+  font-family: var(--f-sans);
+  font-size: var(--t-sm);
+  color: var(--c-ink-700);
+  outline: none;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.form-input:focus {
+  border-color: var(--c-lavender-mid);
+  box-shadow: 0 0 0 3px rgba(212,184,245,0.2);
+}
+.form-input::placeholder { color: var(--c-ink-100); }
+.form-hint {
+  font-size: var(--t-2xs);
+  color: var(--c-ink-300);
+}
+.form-input-error {
+  border-color: var(--c-error) !important;
+}
+.form-error { font-size: var(--t-2xs); color: var(--c-error); }
+
+/* AI Chat Input (ref: Images 8, 9) */
+.ai-chat-card {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: var(--s-8);
+  box-shadow: var(--sh-md);
+  border: 1px solid var(--c-border);
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-5);
+  margin: var(--s-4) auto;
+}
+.ai-orb-sm {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  background: var(--grad-orb-main);
+  box-shadow: var(--sh-orb-lav);
+  animation: orb-float 4s ease-in-out infinite;
+}
+.ai-chat-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  text-align: center;
+}
+.ai-prompts {
+  display: flex;
+  gap: var(--s-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.ai-prompt-chip {
+  padding: 6px 14px;
+  border-radius: var(--r-full);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  font-size: var(--t-xs);
+  color: var(--c-ink-500);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+}
+.ai-prompt-chip:hover {
+  border-color: var(--c-lavender-mid);
+  color: var(--c-lavender-deep);
+}
+.ai-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-2);
+  width: 100%;
+  padding: 8px 8px 8px 16px;
+  border-radius: var(--r-full);
+  border: 1.5px solid var(--c-border-mid);
+  background: var(--c-surface);
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+}
+.ai-input-row:focus-within {
+  border-color: var(--c-lavender-mid);
+  box-shadow: 0 0 0 3px rgba(212,184,245,0.15);
+}
+.ai-input-row input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--f-sans);
+  font-size: var(--t-sm);
+  color: var(--c-ink-700);
+}
+.ai-send-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: var(--c-ink-900);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  transition: background var(--dur-fast);
+}
+.ai-send-btn:hover { background: var(--c-lavender-deep); }
+
+/* ══════════════════════════════════════════
+   SECTION 09 — SCENARIO CARD (ETHOS-SPECIFIC)
+   ══════════════════════════════════════════ */
+.scenario-card {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid var(--c-border);
+  box-shadow: var(--sh-sm);
+  transition: all var(--dur-base) var(--ease-out);
+}
+.scenario-card:hover {
+  box-shadow: var(--sh-lg);
+  transform: translateY(-3px);
+}
+.scenario-header {
+  padding: var(--s-6);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-4);
+  border-bottom: 1px solid var(--c-border);
+  position: relative;
+  overflow: hidden;
+}
+.scenario-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.07;
+}
+.scenario-orb-mini {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: orb-float 5s ease-in-out infinite;
+}
+.scenario-meta { flex: 1; }
+.scenario-num {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+  margin-bottom: var(--s-1);
+}
+.scenario-title {
+  font-size: var(--t-h3);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  line-height: 1.3;
+}
+.scenario-body { padding: var(--s-5) var(--s-6); }
+.scenario-desc {
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  line-height: 1.7;
+  margin-bottom: var(--s-4);
+}
+.scenario-tags { display: flex; gap: var(--s-2); flex-wrap: wrap; }
+.scenario-tag {
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-size: var(--t-2xs);
+  font-weight: 500;
+}
+.scenario-footer {
+  padding: var(--s-4) var(--s-6);
+  border-top: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.scenario-difficulty {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+.diff-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+}
+.scenario-cta {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-ink-900);
+  display: flex;
+  align-items: center;
+  gap: var(--s-1);
+  cursor: pointer;
+}
+
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--s-4);
+}
+
+/* ══════════════════════════════════════════
+   SECTION 10 — PROCESS SECTION (ETHOS 5-STEP)
+   ══════════════════════════════════════════ */
+.process-section {
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  padding: var(--s-12);
+  box-shadow: var(--sh-sm);
+  border: 1px solid var(--c-border);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: var(--s-8);
+}
+.process-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.process-bg-orb-1 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(212,184,245,0.12) 0%, transparent 70%);
+  top: -100px; right: -100px;
+}
+.process-bg-orb-2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(146,237,212,0.12) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+}
+.process-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: var(--s-10);
+  position: relative;
+  z-index: 1;
+}
+.process-title {
+  font-size: var(--t-h1);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--c-ink-900);
+}
+.process-title span {
+  background: var(--grad-logo);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.process-desc {
+  max-width: 300px;
+  font-size: var(--t-sm);
+  color: var(--c-ink-500);
+  line-height: 1.7;
+  text-align: right;
+}
+
+/* ══════════════════════════════════════════
+   SECTION 11 — MODAL & EMAIL SYSTEM
+   (Combined from mailModal_ethos.html)
+   ══════════════════════════════════════════ */
+
+/* Modal Shell */
+.modal-box {
+  width: 100%;
+  max-width: 920px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  border: 1px solid var(--c-border);
+  margin: 0 auto;
+}
+
+/* Modal Header */
+.modal-header {
+  background: var(--c-surface);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  border-bottom: 1px solid var(--c-border);
+}
+.header-left { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+
+.header-logo {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--grad-logo);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 4px 12px rgba(155,120,220,0.2);
+}
+
+.header-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.header-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-ink-900);
+}
+.header-subtitle {
+  font-size: var(--t-xs);
+  color: var(--c-ink-300);
+  font-weight: 500;
+}
+
+/* Vertical Panels */
+.modal-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 500px;
+}
+.edit-panel {
+  width: 272px;
+  flex-shrink: 0;
+  background: var(--c-surface-2);
+  border-right: 1px solid var(--c-border);
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.preview-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  background: var(--c-bg);
+}
+
+/* Email Template */
+.mail-preview {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+  box-shadow: var(--sh-md);
+  max-width: 460px;
+  margin: 0 auto;
+}
+.mail-banner {
+  background: var(--grad-banner, var(--grad-logo));
+  padding: 24px;
+  text-align: center;
+  position: relative;
+}
+.mail-content { padding: 20px; }
+.info-card {
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border: 1px solid;
+}
+.info-card-teal {
+  background: linear-gradient(145deg, rgba(125,206,245,0.1) 0%, rgba(146,237,212,0.08) 100%);
+  border-color: rgba(125,206,245,0.3);
+}
+
+/* Utility Extension */
+.grad-banner { background: linear-gradient(135deg, #9B78DC 0%, #6BDCBE 60%, #52B9ED 100%); }
+
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: var(--s-2); }
+.gap-4 { gap: var(--s-4); }
+.gap-6 { gap: var(--s-6); }
+.gap-8 { gap: var(--s-8); }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-6); }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--s-4); }
+.mt-4 { margin-top: var(--s-4); }
+.mt-6 { margin-top: var(--s-6); }
+.mt-8 { margin-top: var(--s-8); }
+.mb-4 { margin-bottom: var(--s-4); }
+.mb-6 { margin-bottom: var(--s-6); }
+.mb-8 { margin-bottom: var(--s-8); }
+.text-ink-300 { color: var(--c-ink-300); }
+.text-ink-500 { color: var(--c-ink-500); }
+.fw-700 { font-weight: 700; }
+.fw-800 { font-weight: 800; }
+.mono { font-family: var(--f-mono); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HERO ── -->
+  <div class="hero">
+    <div class="hero-left">
+      <div>
+        <div class="hero-wordmark">
+          <div class="hero-wordmark-orb"></div>
+          <span class="hero-wordmark-name">ETHOS</span>
+        </div>
+        <h1 class="hero-headline">Design<br><em>System</em><br>v4</h1>
+        <p class="hero-sub">Aurora Editorial — 가독성 우선, 소프트 오브 그라디언트, 에디토리얼 타이포그래피, AI 윤리 교육을 위한 디자인 언어</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="hero-badge">v4.0.0 · 2026</span>
+        <span class="hero-badge">AI Ethics SaaS</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-orb-wrap">
+        <div class="hero-orb-main"></div>
+        <div class="hero-orb-ring"></div>
+        <div class="hero-orb-ring-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SECTION 01: COLOR ── -->
+  <section class="section">
+    <div class="section-label">01 · Foundation</div>
+    <h2 class="section-title">Color System</h2>
+    <p class="section-desc">ETHOS 로고의 라벤더·민트·틸 3원색을 기반으로 한 팔레트. 배경은 극도로 밝게, 포인트는 오브 그라디언트로.</p>
+
+    <div style="margin-bottom:var(--s-6)">
+      <p class="section-label" style="margin-bottom:var(--s-3)">Brand Gradients</p>
+      <div class="grad-row">
+        <div class="grad-item">
+          <div class="grad-strip" style="background:var(--grad-logo)"></div>
+          <span class="grad-label">--grad-logo · Lavender→Mint→Teal</span>
+        </div>
+        <div class="grad-item">
+          <div class="grad-strip" style="background:var(--grad-orb-main)"></div>
+          <span class="grad-label">--grad-orb-main · Radial</span>
+        </div>
+        <div class="grad-item">
+          <div class="grad-strip" style="background:var(--grad-orb-warm)"></div>
+          <span class="grad-label">--grad-orb-warm · Rose+Lavender</span>
+        </div>
+        <div class="grad-item">
+          <div class="grad-strip" style="background:var(--grad-orb-cool)"></div>
+          <span class="grad-label">--grad-orb-cool · Teal+Mint</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#D4B8F5"></div><div class="color-chip-info"><div class="color-chip-name">Lavender</div><div class="color-chip-hex">#D4B8F5</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#9B78DC"></div><div class="color-chip-info"><div class="color-chip-name">Lavender Deep</div><div class="color-chip-hex">#9B78DC</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#92EDD4"></div><div class="color-chip-info"><div class="color-chip-name">Mint</div><div class="color-chip-hex">#92EDD4</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#44C4A2"></div><div class="color-chip-info"><div class="color-chip-name">Mint Deep</div><div class="color-chip-hex">#44C4A2</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#7DCEF5"></div><div class="color-chip-info"><div class="color-chip-name">Teal</div><div class="color-chip-hex">#7DCEF5</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#2E9DD4"></div><div class="color-chip-info"><div class="color-chip-name">Teal Deep</div><div class="color-chip-hex">#2E9DD4</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#F5C2D8"></div><div class="color-chip-info"><div class="color-chip-name">Rose</div><div class="color-chip-hex">#F5C2D8</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#0E0E18"></div><div class="color-chip-info"><div class="color-chip-name">Ink 900</div><div class="color-chip-hex">#0E0E18</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#5A5A78"></div><div class="color-chip-info"><div class="color-chip-name">Ink 500</div><div class="color-chip-hex">#5A5A78</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#F8F9FA; border:1px solid #E8ECF2"></div><div class="color-chip-info"><div class="color-chip-name">BG</div><div class="color-chip-hex">#F8F9FA</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#FFFFFF; border:1px solid #E8ECF2"></div><div class="color-chip-info"><div class="color-chip-name">Surface</div><div class="color-chip-hex">#FFFFFF</div></div></div>
+      <div class="color-chip"><div class="color-chip-swatch" style="background:#E85555"></div><div class="color-chip-info"><div class="color-chip-name">Error</div><div class="color-chip-hex">#E85555</div></div></div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 02: TYPOGRAPHY ── -->
+  <section class="section">
+    <div class="section-label">02 · Foundation</div>
+    <h2 class="section-title">Typography</h2>
+    <p class="section-desc">Pretendard (고딕 계열 sans-serif) 단일 패밀리. 굵기로 계층 형성. 숫자는 강조, 레이블은 Mono.</p>
+
+    <div class="type-showcase">
+      <div class="type-scale-row">
+        <div class="type-meta">Display / 800<br>Hero</div>
+        <div class="type-sample t-display">AI <span class="grad-text">윤리</span> 생존</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-meta">H1 / 700</div>
+        <div class="type-sample t-h1">AI 기본법 대응 교육</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-meta">H2 / 700</div>
+        <div class="type-sample t-h2">시나리오 기반 딜레마 트레이닝</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-meta">H3 / 600</div>
+        <div class="type-sample t-h3">소크라테스식 토론 시뮬레이션</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-meta">Body / 400<br>1rem · 1.65</div>
+        <div class="type-sample t-body">ETHOS는 한국 기업의 AI 윤리 역량을 단계적으로 성장시키는 B2B SaaS 플랫폼입니다. 실무 맥락에 맞는 딜레마를 통해 의사결정 능력을 키웁니다.</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-meta">Small / 400<br>0.875rem</div>
+        <div class="type-sample t-small">채용 AI 편향 · 생성 AI 저작권 침해 · 고객 데이터 과수집 · 추천 알고리즘 필터버블</div>
+      </div>
+      <div class="type-scale-row">
+        <div class="type-meta">Caption / Mono<br>0.75rem</div>
+        <div class="type-sample t-caption">ETHOS · v4.0 · 2026-03-14 · KR / SG</div>
+      </div>
+      <div class="type-scale-row" style="align-items:center">
+        <div class="type-meta">Number / 800<br>Display</div>
+        <div class="flex gap-8 items-center">
+          <span class="t-num-big" style="background:var(--grad-logo);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">01</span>
+          <span class="t-num-big" style="color:var(--c-ink-100)">02</span>
+          <span class="t-num-big" style="font-size:clamp(1.5rem,3vw,2.5rem); color:var(--c-ink-500)">03</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 03: ORB SYSTEM ── -->
+  <section class="section">
+    <div class="section-label">03 · Visual Language</div>
+    <h2 class="section-title">Orb Symbol System</h2>
+    <p class="section-desc">브랜드의 핵심 시각 요소. 흐릿하고 발광하는 소프트 오브가 포인트 심볼 역할을 하며 섹션마다 의미를 전달합니다.</p>
+
+    <div class="orb-showcase">
+      <div class="orb-item">
+        <div class="orb orb-xl orb-main"></div>
+        <div class="orb-label">orb-main<br>xl · 120px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-lg orb-warm"></div>
+        <div class="orb-label">orb-warm<br>lg · 80px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-lg orb-cool"></div>
+        <div class="orb-label">orb-cool<br>lg · 80px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-md orb-lav"></div>
+        <div class="orb-label">orb-lav<br>md · 56px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-md orb-mint"></div>
+        <div class="orb-label">orb-mint<br>md · 56px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-md orb-teal"></div>
+        <div class="orb-label">orb-teal<br>md · 56px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-sm orb-main"></div>
+        <div class="orb-label">sm · 36px</div>
+      </div>
+      <div class="orb-item">
+        <div class="orb orb-xs orb-lav"></div>
+        <div class="orb-label">xs · 20px</div>
+      </div>
+    </div>
+
+    <div style="margin-top:var(--s-4)">
+      <p class="section-label" style="margin-bottom:var(--s-3)">Symbol Icons</p>
+      <div class="symbol-grid">
+        <div class="symbol-icon sym-lav">⚖️</div>
+        <div class="symbol-icon sym-mint">🧠</div>
+        <div class="symbol-icon sym-teal">🔍</div>
+        <div class="symbol-icon sym-lav">📊</div>
+        <div class="symbol-icon sym-rose">🛡️</div>
+        <div class="symbol-icon sym-mint">💬</div>
+        <div class="symbol-icon sym-teal">📋</div>
+        <div class="symbol-icon sym-lav">🎯</div>
+        <div class="symbol-icon sym-rose">⚡</div>
+        <div class="symbol-icon sym-mint">🌐</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 04: CARDS ── -->
+  <section class="section">
+    <div class="section-label">04 · Components</div>
+    <h2 class="section-title">Card Patterns</h2>
+
+    <p class="section-label" style="margin-bottom:var(--s-4)">Value Cards (원칙 3장)</p>
+    <div class="value-card-grid" style="margin-bottom:var(--s-10)">
+      <div class="value-card">
+        <div class="value-card-orb-wrap">
+          <div class="orb orb-lg orb-lav"></div>
+        </div>
+        <h3>투명한 의사결정</h3>
+        <p>AI가 내린 결정의 근거를 명확히 설명할 수 있어야 합니다. ETHOS는 이 역량을 조직 전체에 체계적으로 확산시킵니다.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card-orb-wrap">
+          <div class="orb orb-lg orb-mint"></div>
+        </div>
+        <h3>실무 중심 트레이닝</h3>
+        <p>추상적 원칙이 아닌 실제 업무 맥락 속 딜레마를 통해 판단력을 키웁니다. 5가지 핵심 시나리오로 즉시 적용 가능.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-card-orb-wrap">
+          <div class="orb orb-lg orb-teal"></div>
+        </div>
+        <h3>규제 선제 대응</h3>
+        <p>2026년 AI 기본법 시행 전 준비 완료. 컴플라이언스 대시보드로 조직의 AI 윤리 수준을 실시간으로 측정합니다.</p>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-bottom:var(--s-4)">Feature Cards</p>
+    <div class="feature-card-grid" style="margin-bottom:var(--s-10)">
+      <div class="feature-card">
+        <div class="feature-card-icon-row">
+          <div class="feature-card-icon sym-lav">⚖️</div>
+          <div class="feature-card-arrow">→</div>
+        </div>
+        <h4>소크라테스 토론</h4>
+        <p>AI 페르소나 4인과 실시간 윤리 토론. Claude API 기반 동적 시나리오 진행.</p>
+        <span class="feature-card-cta">자세히 보기 →</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon-row">
+          <div class="feature-card-icon sym-mint">📊</div>
+          <div class="feature-card-arrow">→</div>
+        </div>
+        <h4>HR 컴플라이언스</h4>
+        <p>Privacy-by-design 대시보드. 최소 그룹 블라인드 룰 적용 조직 현황 리포트.</p>
+        <span class="feature-card-cta">자세히 보기 →</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon-row">
+          <div class="feature-card-icon sym-teal">🗂️</div>
+          <div class="feature-card-arrow">→</div>
+        </div>
+        <h4>RAG 문서 커스텀</h4>
+        <p>기업 내부 정책과 산업 가이드라인을 RAG로 연동. 맥락 맞춤형 시나리오 자동 생성.</p>
+        <span class="feature-card-cta">자세히 보기 →</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-card-icon-row">
+          <div class="feature-card-icon sym-rose">🌐</div>
+          <div class="feature-card-arrow">→</div>
+        </div>
+        <h4>멀티 리전</h4>
+        <p>한국 AI 기본법 + 싱가포르 AI Governance Framework 동시 대응 모듈.</p>
+        <span class="feature-card-cta">자세히 보기 →</span>
+      </div>
+    </div>
+
+    <p class="section-label" style="margin-bottom:var(--s-4)">Stat Cards</p>
+    <div class="stat-card-row" style="margin-bottom:var(--s-10)">
+      <div class="stat-card">
+        <div class="stat-num" style="background:var(--grad-logo);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">5</div>
+        <div class="stat-label">핵심 AI 딜레마 시나리오</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--c-mint-deep)">4</div>
+        <div class="stat-label">AI 토론 페르소나</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--c-teal-deep)">2026</div>
+        <div class="stat-label">AI 기본법 시행 대응</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--c-lavender-deep)">KR+SG</div>
+        <div class="stat-label">멀티 리전 서비스</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <p class="section-label" style="margin-bottom:var(--s-4)">Stacked Gradient Cards</p>
+        <div style="position:relative;height:200px;">
+          <div class="stacked-cards" style="margin:0">
+            <div class="stacked-card">
+              <div class="stacked-card-num">01</div>
+              <div class="stacked-card-title">채용 AI 편향</div>
+              <div class="stacked-card-desc">알고리즘 차별 가능성 진단</div>
+            </div>
+            <div class="stacked-card">
+              <div class="stacked-card-num">02</div>
+              <div class="stacked-card-title">저작권 침해</div>
+              <div class="stacked-card-desc">생성 AI 창작물 귀속 분쟁</div>
+            </div>
+            <div class="stacked-card">
+              <div class="stacked-card-num">03</div>
+              <div class="stacked-card-title">데이터 과수집</div>
+              <div class="stacked-card-desc">고객 정보 보호 딜레마</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="section-label" style="margin-bottom:var(--s-4)">Schedule Cards</p>
+        <div class="schedule-stack">
+          <div class="schedule-card">
+            <div class="schedule-accent" style="background:var(--c-lavender-mid)"></div>
+            <div class="schedule-meta">
+              <div class="schedule-date">STEP 01 · 사전학습</div>
+              <div class="schedule-name">AI 윤리 개념 이해</div>
+              <div class="schedule-time">20분</div>
+            </div>
+            <div class="schedule-chip" style="background:rgba(212,184,245,0.2);color:var(--c-lavender-deep)">필수</div>
+          </div>
+          <div class="schedule-card">
+            <div class="schedule-accent" style="background:var(--c-mint-mid)"></div>
+            <div class="schedule-meta">
+              <div class="schedule-date">STEP 02 · 시나리오</div>
+              <div class="schedule-name">채용 AI 편향 딜레마</div>
+              <div class="schedule-time">45분</div>
+            </div>
+            <div class="schedule-chip" style="background:rgba(146,237,212,0.2);color:var(--c-mint-deep)">진행중</div>
+          </div>
+          <div class="schedule-card">
+            <div class="schedule-accent" style="background:var(--c-teal-mid)"></div>
+            <div class="schedule-meta">
+              <div class="schedule-date">STEP 03 · 토론</div>
+              <div class="schedule-name">소크라테스 디베이트</div>
+              <div class="schedule-time">30분</div>
+            </div>
+            <div class="schedule-chip" style="background:rgba(125,206,245,0.2);color:var(--c-teal-deep)">예정</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 05: STEP / PROCESS ── -->
+  <section class="section">
+    <div class="section-label">05 · Patterns</div>
+    <h2 class="section-title">Step & Process UI</h2>
+    <p class="section-desc">ETHOS 학습 플로우의 핵심 UI. 수평 플로우, 수직 리스트, 번호형 카드 세 가지 패턴.</p>
+
+    <!-- Horizontal step flow -->
+    <div style="background:var(--c-surface);border-radius:var(--r-xl);padding:var(--s-10);box-shadow:var(--sh-sm);border:1px solid var(--c-border);margin-bottom:var(--s-8)">
+      <p class="section-label" style="margin-bottom:var(--s-6)">수평 플로우 (Horizontal Flow)</p>
+      <div class="step-flow">
+        <div class="step-item active">
+          <div class="step-node step-node-1 active">01</div>
+          <div class="step-label">사전 학습<br>AI 개념</div>
+        </div>
+        <div class="step-item">
+          <div class="step-node step-node-2">02</div>
+          <div class="step-label">시나리오<br>딜레마</div>
+        </div>
+        <div class="step-item">
+          <div class="step-node step-node-3">03</div>
+          <div class="step-label">소크라테스<br>토론</div>
+        </div>
+        <div class="step-item">
+          <div class="step-node step-node-4">04</div>
+          <div class="step-label">팀 합의<br>의사결정</div>
+        </div>
+        <div class="step-item">
+          <div class="step-node step-node-5">05</div>
+          <div class="step-label">리포트<br>& 인증</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Numbered card group -->
+    <div class="grid-2" style="margin-bottom:var(--s-8)">
+      <div>
+        <p class="section-label" style="margin-bottom:var(--s-4)">번호형 카드 (Numbered Cards)</p>
+        <div style="position:relative">
+          <div class="numbered-card-group">
+            <div class="numbered-card">
+              <div class="numbered-card-num" style="background:rgba(212,184,245,0.2);color:var(--c-lavender-deep)">01</div>
+              <div class="numbered-card-content">
+                <h4>사전 학습 모듈</h4>
+                <p>AI 윤리의 기본 원칙과 국내외 규제 현황을 이해합니다.</p>
+              </div>
+            </div>
+            <div class="numbered-card featured">
+              <div class="numbered-card-num" style="background:rgba(146,237,212,0.2);color:var(--c-mint-deep)">02</div>
+              <div class="numbered-card-content">
+                <h4>딜레마 시나리오</h4>
+                <p>5가지 실무 시나리오 중 선택. 부서별 맞춤 트랙 제공.</p>
+              </div>
+            </div>
+            <div class="numbered-card">
+              <div class="numbered-card-num" style="background:rgba(125,206,245,0.2);color:var(--c-teal-deep)">03</div>
+              <div class="numbered-card-content">
+                <h4>소크라테스 토론</h4>
+                <p>AI 페르소나와 논증 구조를 실습. 다양한 입장 경험.</p>
+              </div>
+            </div>
+          </div>
+          <div class="big-label" style="font-size:clamp(4rem,8vw,6rem);opacity:0.05">5</div>
+        </div>
+      </div>
+
+      <div>
+        <p class="section-label" style="margin-bottom:var(--s-4)">수직 리스트 (Vertical Step List)</p>
+        <div class="step-list">
+          <div class="step-list-item">
+            <div class="step-list-node" style="background:rgba(212,184,245,0.2);border-color:var(--c-lavender-mid);color:var(--c-lavender-deep)">1</div>
+            <div class="step-list-body">
+              <span class="step-list-tag" style="background:rgba(212,184,245,0.15);color:var(--c-lavender-deep)">2주</span>
+              <div class="step-list-title">Preparation</div>
+              <div class="step-list-desc">AI 기본법 규제 맵핑 및 조직 현황 분석</div>
+              <div class="step-list-checks">
+                <div class="step-list-check"><div class="check-dot" style="background:var(--c-lavender-mid)">✓</div>규제 요건 분석</div>
+                <div class="step-list-check"><div class="check-dot" style="background:var(--c-lavender-mid)">✓</div>조직 리스크 진단</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-list-item">
+            <div class="step-list-node" style="background:rgba(146,237,212,0.2);border-color:var(--c-mint-mid);color:var(--c-mint-deep)">2</div>
+            <div class="step-list-body">
+              <span class="step-list-tag" style="background:rgba(146,237,212,0.15);color:var(--c-mint-deep)">3주</span>
+              <div class="step-list-title">Training</div>
+              <div class="step-list-desc">시나리오 기반 실무 훈련 및 소크라테스 토론</div>
+              <div class="step-list-checks">
+                <div class="step-list-check"><div class="check-dot" style="background:var(--c-mint-mid)">✓</div>5대 딜레마 실습</div>
+                <div class="step-list-check"><div class="check-dot" style="background:var(--c-mint-mid)">✓</div>AI 토론 시뮬레이션</div>
+              </div>
+            </div>
+          </div>
+          <div class="step-list-item">
+            <div class="step-list-node" style="background:rgba(125,206,245,0.2);border-color:var(--c-teal-mid);color:var(--c-teal-deep)">3</div>
+            <div class="step-list-body">
+              <span class="step-list-tag" style="background:rgba(125,206,245,0.15);color:var(--c-teal-deep)">2주</span>
+              <div class="step-list-title">Certification</div>
+              <div class="step-list-desc">HR 컴플라이언스 대시보드 및 인증서 발급</div>
+              <div class="step-list-checks">
+                <div class="step-list-check"><div class="check-dot" style="background:var(--c-teal-mid)">✓</div>조직 리포트 생성</div>
+                <div class="step-list-check"><div class="check-dot" style="background:var(--c-teal-mid)">✓</div>AI 윤리 인증 발급</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 06: SCENARIO CARDS ── -->
+  <section class="section">
+    <div class="section-label">06 · ETHOS-Specific</div>
+    <h2 class="section-title">Scenario Cards</h2>
+    <p class="section-desc">5가지 핵심 AI 딜레마 시나리오 카드 패턴.</p>
+
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-meta">
+            <div class="scenario-num">SCN-01</div>
+            <div class="scenario-title">채용 AI 편향</div>
+          </div>
+          <div class="orb orb-sm orb-lav"></div>
+        </div>
+        <div class="scenario-body">
+          <p class="scenario-desc">자동 이력서 스크리닝 AI가 특정 인구 집단을 체계적으로 차별할 때, HR 담당자는 어떤 결정을 내려야 하는가?</p>
+          <div class="scenario-tags">
+            <span class="scenario-tag" style="background:rgba(212,184,245,0.2);color:var(--c-lavender-deep)">채용</span>
+            <span class="scenario-tag" style="background:rgba(212,184,245,0.2);color:var(--c-lavender-deep)">차별금지</span>
+            <span class="scenario-tag" style="background:rgba(212,184,245,0.2);color:var(--c-lavender-deep)">HR</span>
+          </div>
+        </div>
+        <div class="scenario-footer">
+          <div class="scenario-difficulty">
+            <div class="diff-dot" style="background:var(--c-lavender-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-lavender-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-lavender-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-border)"></div>
+            <div class="diff-dot" style="background:var(--c-border)"></div>
+            <span style="font-size:var(--t-2xs);color:var(--c-ink-300);margin-left:var(--s-2)">중급</span>
+          </div>
+          <div class="scenario-cta">시작하기 →</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-meta">
+            <div class="scenario-num">SCN-02</div>
+            <div class="scenario-title">생성 AI 저작권 침해</div>
+          </div>
+          <div class="orb orb-sm orb-mint"></div>
+        </div>
+        <div class="scenario-body">
+          <p class="scenario-desc">마케팅팀이 생성 AI로 만든 콘텐츠가 기존 작가의 저작물과 유사할 때, 기업은 어떤 책임을 지는가?</p>
+          <div class="scenario-tags">
+            <span class="scenario-tag" style="background:rgba(146,237,212,0.2);color:var(--c-mint-deep)">저작권</span>
+            <span class="scenario-tag" style="background:rgba(146,237,212,0.2);color:var(--c-mint-deep)">생성AI</span>
+            <span class="scenario-tag" style="background:rgba(146,237,212,0.2);color:var(--c-mint-deep)">법적책임</span>
+          </div>
+        </div>
+        <div class="scenario-footer">
+          <div class="scenario-difficulty">
+            <div class="diff-dot" style="background:var(--c-mint-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-mint-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-mint-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-mint-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-border)"></div>
+            <span style="font-size:var(--t-2xs);color:var(--c-ink-300);margin-left:var(--s-2)">고급</span>
+          </div>
+          <div class="scenario-cta">시작하기 →</div>
+        </div>
+      </div>
+
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-meta">
+            <div class="scenario-num">SCN-03</div>
+            <div class="scenario-title">고객 데이터 과수집</div>
+          </div>
+          <div class="orb orb-sm orb-teal"></div>
+        </div>
+        <div class="scenario-body">
+          <p class="scenario-desc">AI 개인화 서비스를 위해 필요 이상의 고객 데이터를 수집하는 관행이 발견됐을 때 데이터팀의 판단은?</p>
+          <div class="scenario-tags">
+            <span class="scenario-tag" style="background:rgba(125,206,245,0.2);color:var(--c-teal-deep)">프라이버시</span>
+            <span class="scenario-tag" style="background:rgba(125,206,245,0.2);color:var(--c-teal-deep)">데이터</span>
+            <span class="scenario-tag" style="background:rgba(125,206,245,0.2);color:var(--c-teal-deep)">GDPR</span>
+          </div>
+        </div>
+        <div class="scenario-footer">
+          <div class="scenario-difficulty">
+            <div class="diff-dot" style="background:var(--c-teal-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-teal-mid)"></div>
+            <div class="diff-dot" style="background:var(--c-border)"></div>
+            <div class="diff-dot" style="background:var(--c-border)"></div>
+            <div class="diff-dot" style="background:var(--c-border)"></div>
+            <span style="font-size:var(--t-2xs);color:var(--c-ink-300);margin-left:var(--s-2)">초급</span>
+          </div>
+          <div class="scenario-cta">시작하기 →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 07: BUTTONS ── -->
+  <section class="section">
+    <div class="section-label">07 · Components</div>
+    <h2 class="section-title">Buttons</h2>
+    <div class="btn-showcase">
+      <button class="btn btn-primary">시나리오 시작</button>
+      <button class="btn btn-grad">무료 체험하기</button>
+      <button class="btn btn-outline">자세히 보기</button>
+      <button class="btn btn-ghost">문의하기</button>
+      <button class="btn btn-primary btn-sm">소형</button>
+      <button class="btn btn-primary btn-lg">대형 CTA</button>
+      <button class="btn btn-icon">↑</button>
+    </div>
+  </section>
+
+  <!-- ── SECTION 08: CHIPS & BADGES ── -->
+  <section class="section">
+    <div class="section-label">08 · Components</div>
+    <h2 class="section-title">Chips & Badges</h2>
+    <div class="chip-showcase">
+      <span class="chip chip-lav">⚖️ 채용 편향</span>
+      <span class="chip chip-mint">🧠 생성 AI</span>
+      <span class="chip chip-teal">🔍 데이터 프라이버시</span>
+      <span class="chip chip-rose">💬 필터버블</span>
+      <span class="chip chip-dark">AI 기본법</span>
+      <span class="chip chip-outline">2026 시행</span>
+      <span class="badge badge-new">NEW</span>
+      <span class="badge badge-live"><span class="badge-dot"></span>LIVE</span>
+      <span class="badge badge-warn">⚠ BETA</span>
+    </div>
+  </section>
+
+  <!-- ── SECTION 09: FORMS + AI INPUT ── -->
+  <section class="section">
+    <div class="section-label">09 · Components</div>
+    <h2 class="section-title">Forms & AI Input</h2>
+    <div class="grid-2" style="margin-bottom:var(--s-8)">
+      <div class="form-showcase">
+        <div class="form-field">
+          <label class="form-label">조직명</label>
+          <input class="form-input" type="text" placeholder="예: (주)삼성전자">
+        </div>
+        <div class="form-field">
+          <label class="form-label">부서</label>
+          <input class="form-input" type="text" placeholder="예: AI 전략팀">
+        </div>
+        <div class="form-field">
+          <label class="form-label">이메일</label>
+          <input class="form-input" type="email" placeholder="contact@company.com">
+          <span class="form-hint">업무용 이메일을 입력해주세요.</span>
+        </div>
+        <div class="form-field">
+          <label class="form-label">접속코드 (오류 예시)</label>
+          <input class="form-input form-input-error" type="text" value="INVALID-CODE">
+          <span class="form-error">유효하지 않은 접속 코드입니다.</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center">
+        <div class="ai-chat-card">
+          <div class="ai-orb-sm"></div>
+          <div class="ai-chat-title">ETHOS AI에게 물어보세요</div>
+          <div class="ai-prompts">
+            <span class="ai-prompt-chip">AI 채용 편향이란?</span>
+            <span class="ai-prompt-chip">저작권 기준 알려줘</span>
+            <span class="ai-prompt-chip">AI 기본법 핵심 조항</span>
+          </div>
+          <div class="ai-input-row">
+            <input type="text" placeholder="AI 윤리 관련 질문을 입력하세요">
+            <button class="ai-send-btn">↑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 10: PROCESS SECTION ── -->
+  <section class="section">
+    <div class="section-label">10 · Layout Pattern</div>
+    <h2 class="section-title">Process Section (전체 레이아웃)</h2>
+
+    <div class="process-section">
+      <div class="process-bg-orb process-bg-orb-1"></div>
+      <div class="process-bg-orb process-bg-orb-2"></div>
+
+      <div class="process-header">
+        <div>
+          <div class="section-label" style="margin-bottom:var(--s-2)">ETHOS Learning Journey</div>
+          <h2 class="process-title">AI 윤리<br><span>역량 성장</span><br>단계</h2>
+        </div>
+        <p class="process-desc">한국 AI 기본법 시행에 앞서 조직의 AI 윤리 역량을 단계적으로 체계화하는 5단계 학습 여정입니다.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s-3);position:relative;z-index:1">
+        <div style="border-radius:var(--r-xl);padding:var(--s-5);background:var(--grad-step-1);border:1px solid rgba(212,184,245,0.25)">
+          <div style="font-size:var(--t-num);font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:var(--s-3);background:linear-gradient(135deg,#D4B8F5,#9B78DC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">01</div>
+          <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:var(--s-2)">진단</div>
+          <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6">AI 윤리 수준 기초 진단 및 취약점 파악</div>
+        </div>
+        <div style="border-radius:var(--r-xl);padding:var(--s-5);background:var(--grad-step-2);border:1px solid rgba(146,237,212,0.25);margin-top:var(--s-6)">
+          <div style="font-size:var(--t-num);font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:var(--s-3);background:linear-gradient(135deg,#92EDD4,#44C4A2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">02</div>
+          <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:var(--s-2)">학습</div>
+          <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6">AI 윤리 원칙 및 규제 이해 모듈 수료</div>
+        </div>
+        <div style="border-radius:var(--r-xl);padding:var(--s-5);background:var(--grad-step-3);border:1px solid rgba(125,206,245,0.25)">
+          <div style="font-size:var(--t-num);font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:var(--s-3);background:linear-gradient(135deg,#7DCEF5,#2E9DD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">03</div>
+          <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:var(--s-2)">실습</div>
+          <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6">5대 시나리오 딜레마 실습 및 토론</div>
+        </div>
+        <div style="border-radius:var(--r-xl);padding:var(--s-5);background:var(--grad-step-4);border:1px solid rgba(245,194,216,0.25);margin-top:var(--s-6)">
+          <div style="font-size:var(--t-num);font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:var(--s-3);background:linear-gradient(135deg,#F5C2D8,#C44A7A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">04</div>
+          <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:var(--s-2)">평가</div>
+          <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6">조직 전체 AI 윤리 역량 측정 및 리포트</div>
+        </div>
+        <div style="border-radius:var(--r-xl);padding:var(--s-5);background:var(--grad-step-5);border:1px solid rgba(155,120,220,0.2)">
+          <div style="font-size:var(--t-num);font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:var(--s-3);background:var(--grad-logo);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">05</div>
+          <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:var(--s-2)">인증</div>
+          <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6">AI 기본법 대응 역량 인증서 발급</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 11: MODAL & EMAIL SYSTEM ── -->
+  <section class="section">
+    <div class="section-label">11 · Full Systems</div>
+    <h2 class="section-title">Modal & Email System</h2>
+    <p class="section-desc">독려 메일 발송 시스템을 위한 통합 레이아웃. 편집 패널과 라이브 프리뷰가 결합된 2단 모달 구조입니다.</p>
+    
+    <div class="modal-box">
+      <!-- 헤더 -->
+      <div class="modal-header">
+        <div class="header-left">
+          <div class="header-logo">AI</div>
+          <div class="header-text-group">
+            <h3 class="header-title" style="margin:0">AI 윤리 교육 플랫폼</h3>
+            <span class="header-subtitle">독려 메일 편집 모드</span>
+          </div>
+        </div>
+        <div style="color:var(--c-ink-300);cursor:pointer">✕</div>
+      </div>
+      
+      <div class="modal-body">
+        <!-- 좌측 편집 -->
+        <div class="edit-panel">
+          <div style="font-size:var(--t-xs);font-weight:700;margin-bottom:8px">01 · Banner</div>
+          <div style="background:white;padding:12px;border:1px solid var(--c-border);border-radius:var(--r-md);font-size:var(--t-xs)">
+            AI 윤리 교육 안내 (입력창 예시)
+          </div>
+          <div style="font-size:var(--t-xs);font-weight:700;margin:12px 0 8px">02 · Greeting</div>
+          <div style="background:white;padding:12px;border:1px solid var(--c-border);border-radius:var(--r-md);font-size:var(--t-xs);height:60px">
+            본문 내용 입력 예시...
+          </div>
+        </div>
+        
+        <!-- 우측 프리뷰 -->
+        <div class="preview-panel">
+          <div class="mail-preview">
+            <div class="mail-banner grad-banner">
+              <div style="color:white;font-size:1rem;font-weight:800">AI 윤리 교육 안내</div>
+              <div style="color:rgba(255,255,255,0.8);font-size:var(--t-xs)">ETHOS PROGRAM</div>
+            </div>
+            <div class="mail-content">
+              <div style="font-size:var(--t-sm);margin-bottom:12px"><b>김철수</b> 님, 안녕하세요.</div>
+              <div class="info-card info-card-teal">
+                <div style="font-size:var(--t-xs);font-weight:700;color:var(--c-teal-deep);margin-bottom:4px">📊 현재 진행 상황</div>
+                <div style="font-size:var(--t-xs);color:var(--c-ink-500)">진도율: <span style="color:var(--c-lavender-deep);font-weight:700">20%</span></div>
+              </div>
+              <div style="text-align:center;margin-top:20px">
+                <div class="btn btn-primary" style="font-size:var(--t-xs)">교육 계속하기 →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 12: SPACING & RADIUS REFERENCE ── -->
+  <section class="section">
+    <div class="section-label">12 · Tokens</div>
+    <h2 class="section-title">Spacing & Radius</h2>
+    <div class="grid-2">
+      <div style="background:var(--c-surface);border-radius:var(--r-xl);padding:var(--s-6);box-shadow:var(--sh-sm);border:1px solid var(--c-border)">
+        <p class="section-label" style="margin-bottom:var(--s-4)">Spacing Scale</p>
+        <div style="display:flex;flex-direction:column;gap:var(--s-2)">
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:4px;height:16px;background:var(--c-lavender-mid);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-1 · 4px</span></div>
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:8px;height:16px;background:var(--c-lavender-mid);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-2 · 8px</span></div>
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:16px;height:16px;background:var(--c-mint-mid);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-4 · 16px</span></div>
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:24px;height:16px;background:var(--c-mint-mid);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-6 · 24px</span></div>
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:32px;height:16px;background:var(--c-teal-mid);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-8 · 32px</span></div>
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:48px;height:16px;background:var(--c-teal-mid);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-12 · 48px</span></div>
+          <div style="display:flex;align-items:center;gap:var(--s-4)"><div style="width:64px;height:16px;background:var(--grad-logo);border-radius:2px"></div><span class="mono" style="font-size:var(--t-xs);color:var(--c-ink-500)">s-16 · 64px</span></div>
+        </div>
+      </div>
+      <div style="background:var(--c-surface);border-radius:var(--r-xl);padding:var(--s-6);box-shadow:var(--sh-sm);border:1px solid var(--c-border)">
+        <p class="section-label" style="margin-bottom:var(--s-4)">Border Radius</p>
+        <div style="display:flex;flex-wrap:wrap;gap:var(--s-4)">
+          <div style="text-align:center"><div style="width:40px;height:40px;background:rgba(212,184,245,0.3);border-radius:6px;margin-bottom:4px"></div><span class="mono" style="font-size:var(--t-2xs);color:var(--c-ink-300)">r-sm<br>6px</span></div>
+          <div style="text-align:center"><div style="width:40px;height:40px;background:rgba(212,184,245,0.3);border-radius:12px;margin-bottom:4px"></div><span class="mono" style="font-size:var(--t-2xs);color:var(--c-ink-300)">r-md<br>12px</span></div>
+          <div style="text-align:center"><div style="width:40px;height:40px;background:rgba(146,237,212,0.3);border-radius:16px;margin-bottom:4px"></div><span class="mono" style="font-size:var(--t-2xs);color:var(--c-ink-300)">r-lg<br>16px</span></div>
+          <div style="text-align:center"><div style="width:40px;height:40px;background:rgba(146,237,212,0.3);border-radius:20px;margin-bottom:4px"></div><span class="mono" style="font-size:var(--t-2xs);color:var(--c-ink-500)">r-xl<br>20px</span></div>
+          <div style="text-align:center"><div style="width:40px;height:40px;background:rgba(125,206,245,0.3);border-radius:28px;margin-bottom:4px"></div><span class="mono" style="font-size:var(--t-2xs);color:var(--c-ink-300)">r-2xl<br>28px</span></div>
+          <div style="text-align:center"><div style="width:40px;height:40px;background:var(--grad-logo);border-radius:9999px;margin-bottom:4px"></div><span class="mono" style="font-size:var(--t-2xs);color:var(--c-ink-300)">r-full<br>pill</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

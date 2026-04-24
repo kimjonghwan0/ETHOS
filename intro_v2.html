@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETHOS - 소개</title>
+    <link rel="stylesheet" href="assets/style_v2.css">
+    <script src="assets/app.js"></script>
+    <style>
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+
+
+        .hero-banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            padding: var(--s-12) 0;
+            margin-bottom: 96px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .hero-banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-banner-bg {
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body onload="checkAuth();">
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar"></div>
+
+        <!-- Main -->
+        <div class="main-area">
+            <div class="topbar" id="topbar"></div>
+
+            <div class="page-content">
+
+                <div class="hero-banner">
+                    <div class="hero-banner-content">
+                        <div class="orb orb-sm orb-main" style="margin-bottom:12px;"></div>
+                        <h1 class="t-h1" style="margin-bottom: 8px;">AI 윤리 시뮬레이션 교육</h1>
+                        <h3 class="t-h3 text-gray"
+                            style="font-weight: 500; font-family:var(--f-serif); margin-bottom: 16px;">Ethics Training
+                            for Harmonious Organizational Systems</h3>
+                        <p class="t-body text-ink-500" style="max-width: 500px;">AI 윤리에 대한 체계적인 학습과 실전 시뮬레이션을 통해 윤리적 AI
+                            활용 역량을 키워보세요.</p>
+                    </div>
+                    <div class="hero-banner-bg">
+                        <div class="orb orb-xl orb-lav"></div>
+                    </div>
+                </div>
+
+                <div class="feature-card-grid" style="margin-bottom: 96px;">
+                    <div class="feature-card">
+                        <div class="feature-card-icon-row">
+                            <div class="feature-card-icon sym-lav">📖</div>
+                        </div>
+                        <h4 style="color:var(--c-ink-900);">체계적인 교육 커리큘럼</h4>
+                        <p>AI 윤리의 핵심 개념부터 실무 적용까지 단계별로 학습합니다.</p>
+                        <ul style="margin-left:20px; color:var(--text-muted); font-size:0.85rem; line-height:1.6;">
+                            <li>AI 윤리 기본 개념 및 원칙</li>
+                            <li>프라이버시 및 정보보호</li>
+                            <li>알고리즘 편향 및 할루시네이션</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon-row">
+                            <div class="feature-card-icon sym-mint">👥</div>
+                        </div>
+                        <h4 style="color:var(--c-ink-900);">실전 시나리오 시뮬레이션</h4>
+                        <p>실제 업무 상황을 가정한 5가지 윤리 시나리오로 실습합니다.</p>
+                        <ul style="margin-left:20px; color:var(--text-muted); font-size:0.85rem; line-height:1.6;">
+                            <li>채용 과정에서의 AI 편향 문제</li>
+                            <li>내부 데이터 노출 위험 상황</li>
+                            <li>AI 코드 검증 및 안전성 확보</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon-row">
+                            <div class="feature-card-icon sym-teal">🎯</div>
+                        </div>
+                        <h4 style="color:var(--c-ink-900);">인터랙티브 학습</h4>
+                        <p>다양한 페르소나와의 대화를 통해 설득 능력을 키웁니다.</p>
+                        <ul style="margin-left:20px; color:var(--text-muted); font-size:0.85rem; line-height:1.6;">
+                            <li>랜덤 배정을 통한 공정한 학습 경험</li>
+                            <li>4-5턴의 논리적 설득 대화</li>
+                            <li>실시간 피드백 및 평가</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-card-icon-row">
+                            <div class="feature-card-icon sym-rose">🛡️</div>
+                        </div>
+                        <h4 style="color:var(--c-ink-900);">체계적인 학습 관리</h4>
+                        <p>학습 과정을 단계별로 확인하고, 성과를 확인하세요.</p>
+                        <ul style="margin-left:20px; color:var(--text-muted); font-size:0.85rem; line-height:1.6;">
+                            <li>학습 진행률 실시간 확인</li>
+                            <li>만족도 조사 및 피드백</li>
+                            <li>교육 수료증 발급</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="process-section" style="margin-bottom: 40px; padding: 0; background: transparent; border: none; box-shadow: none;">
+                    <div class="process-header" style="justify-content: center; margin-bottom: 24px; flex-direction: column; align-items: center; gap: 8px;">
+                        <h2 class="t-h2" style="font-weight: 700; text-align: center;">수료 기준</h2>
+                        <p class="t-sm text-ink-500" style="text-align: center;">다음 순서로 교육이 진행됩니다</p>
+                    </div>
+                    
+                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;position:relative;z-index:1;">
+                        <div style="border-radius:12px;padding:10px 16px;background:var(--c-surface);border:1px solid rgba(212,184,245,0.4);display:flex;flex-direction:column;align-items:center;text-align:center;">
+                            <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,#D4B8F5,#9B78DC);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">1</div>
+                            <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:4px">학습</div>
+                            <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6;word-break:keep-all;">AI 윤리 교육 영상<br>기본+심화 5개</div>
+                        </div>
+                        <div style="border-radius:12px;padding:10px 16px;background:var(--c-surface);border:1px solid rgba(146,237,212,0.4);display:flex;flex-direction:column;align-items:center;text-align:center;">
+                            <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,#92EDD4,#44C4A2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">2</div>
+                            <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:4px">실습</div>
+                            <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6;word-break:keep-all;">시나리오 시뮬레이터<br>챗봇</div>
+                        </div>
+                        <div style="border-radius:12px;padding:10px 16px;background:var(--c-surface);border:1px solid rgba(125,206,245,0.4);display:flex;flex-direction:column;align-items:center;text-align:center;">
+                            <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,#7DCEF5,#2E9DD4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">3</div>
+                            <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:4px">리뷰</div>
+                            <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6;word-break:keep-all;">만족도 조사 작성 및<br>피드백 확인</div>
+                        </div>
+                        <div style="border-radius:12px;padding:10px 16px;background:var(--c-surface);border:1px solid rgba(245,194,216,0.4);display:flex;flex-direction:column;align-items:center;text-align:center;">
+                            <div style="font-size:2.5rem;font-weight:800;letter-spacing:-0.05em;line-height:1;margin-bottom:8px;background:linear-gradient(135deg,#F5C2D8,#C44A7A);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">4</div>
+                            <div style="font-size:var(--t-sm);font-weight:700;color:var(--c-ink-900);margin-bottom:4px">완료</div>
+                            <div style="font-size:var(--t-xs);color:var(--c-ink-500);line-height:1.6;word-break:keep-all;">최종 수료증 발급</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;justify-content:center;gap:16px;margin-bottom:96px;">
+                    <button class="btn" style="background-color: #F1F1F1; color: #333333; border: none; font-weight: 500; font-size: 1rem; padding: 12px 24px; border-radius: 8px;" onclick="alert('가이드 다운로드 기능 준비 중입니다.')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 6px; margin-bottom: 2px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        수료 기준 가이드 다운로드
+                    </button>
+                    <button class="btn"
+                        style="background-color: #8C62C8; color: white; border: none; padding: 12px 32px; font-size: 1rem; border-radius: 8px;"
+                        onclick="startVideo()">학습 시작하기 →</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startVideo() {
+            State.setStage(1);
+            localStorage.setItem('ethos_video_idx', '0');
+            window.location.href = 'video_v2.html';
+        }
+    </script>
+</body>
+
+</html>

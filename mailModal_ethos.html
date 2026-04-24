@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ETHOS 독려 메일 편집</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── ETHOS Design System v5 Tokens ── */
+:root {
+  --c-lavender:      #D4B8F5;
+  --c-lavender-mid:  #BC9EED;
+  --c-lavender-deep: #9B78DC;
+  --c-mint:          #92EDD4;
+  --c-mint-mid:      #6BDCBE;
+  --c-mint-deep:     #44C4A2;
+  --c-teal:          #7DCEF5;
+  --c-teal-mid:      #52B9ED;
+  --c-teal-deep:     #2E9DD4;
+  --c-rose:          #F5C2D8;
+
+  --c-bg:        #EBF0F5;
+  --c-surface:   #FFFFFF;
+  --c-surface-2: #F2F4F7;
+  --c-surface-3: #E8ECF2;
+  --c-border:    rgba(0,0,0,0.07);
+  --c-border-mid:rgba(0,0,0,0.12);
+
+  --c-ink-900: #0E0E18;
+  --c-ink-700: #2A2A3E;
+  --c-ink-500: #5A5A78;
+  --c-ink-300: #9494B0;
+  --c-ink-100: #D0D0E0;
+
+  --c-primary: var(--c-lavender-deep);
+  --c-warn:    #F5A623;
+
+  --grad-logo:      linear-gradient(135deg, #D4B8F5 0%, #92EDD4 55%, #7DCEF5 100%);
+  --grad-banner:    linear-gradient(135deg, #9B78DC 0%, #6BDCBE 60%, #52B9ED 100%);
+  --grad-card-lav:  linear-gradient(145deg, rgba(212,184,245,0.15) 0%, rgba(255,255,255,0) 60%);
+  --grad-card-mint: linear-gradient(145deg, rgba(146,237,212,0.15) 0%, rgba(255,255,255,0) 60%);
+
+  --f-sans: 'Pretendard', -apple-system, 'Noto Sans KR', sans-serif;
+  --f-mono: 'JetBrains Mono', monospace;
+
+  --t-sm:  0.875rem;
+  --t-xs:  0.75rem;
+  --t-2xs: 0.6875rem;
+
+  --r-sm: 6px; --r-md: 12px; --r-lg: 16px; --r-xl: 20px; --r-full: 9999px;
+
+  --sh-xs: 0 1px 4px rgba(0,0,0,0.06);
+  --sh-sm: 0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.04);
+  --sh-md: 0 4px 20px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04);
+  --sh-lg: 0 8px 40px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.05);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-base: 200ms;
+  --dur-fast: 120ms;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  font-family: var(--f-sans);
+  background: var(--c-bg);
+  color: var(--c-ink-700);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* ══════════════════════════════
+   MODAL SHELL
+══════════════════════════════ */
+.modal-box {
+  width: 100%;
+  max-width: 920px;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-lg);
+  border: 1px solid var(--c-border);
+}
+
+/* ── 헤더 ── */
+.modal-header {
+  background: var(--c-surface);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  position: relative;
+  border-bottom: 1px solid var(--c-border);
+}
+.header-left { display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+
+.header-logo {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--grad-logo);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: white;
+  box-shadow: 0 4px 12px rgba(155,120,220,0.2);
+}
+
+.header-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.header-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-ink-900);
+}
+.header-subtitle {
+  font-size: var(--t-xs);
+  color: var(--c-ink-300);
+  font-weight: 500;
+}
+
+.close-btn {
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-border);
+  color: var(--c-ink-500);
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--dur-fast);
+}
+.close-btn:hover { 
+  background: var(--c-surface-3); 
+  color: var(--c-ink-900);
+  transform: translateY(-1px);
+}
+
+/* ── 본문 2단 ── */
+.modal-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ══════════════════════════════
+   좌측: 편집 패널
+══════════════════════════════ */
+.edit-panel {
+  width: 272px;
+  flex-shrink: 0;
+  background: var(--c-surface-2);
+  border-right: 1px solid var(--c-border);
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.edit-panel::-webkit-scrollbar { width: 4px; }
+.edit-panel::-webkit-scrollbar-track { background: transparent; }
+.edit-panel::-webkit-scrollbar-thumb { background: var(--c-ink-100); border-radius: 2px; }
+
+.edit-section {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-lg);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: var(--sh-xs);
+}
+.edit-section-title {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  color: var(--c-ink-300);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 4px;
+}
+.edit-label {
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-ink-500);
+  margin-top: 6px;
+  letter-spacing: 0.02em;
+}
+.edit-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--c-border-mid);
+  background: var(--c-surface);
+  font-family: var(--f-sans);
+  font-size: var(--t-sm);
+  color: var(--c-ink-700);
+  outline: none;
+  transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  resize: vertical;
+}
+.edit-input:focus {
+  border-color: var(--c-lavender-mid);
+  box-shadow: 0 0 0 3px rgba(212,184,245,0.2);
+}
+.edit-input::placeholder { color: var(--c-ink-100); }
+
+/* ══════════════════════════════
+   우측: 이메일 프리뷰
+══════════════════════════════ */
+.preview-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px;
+  background: var(--c-bg);
+}
+.preview-panel::-webkit-scrollbar { width: 4px; }
+.preview-panel::-webkit-scrollbar-thumb { background: var(--c-ink-100); border-radius: 2px; }
+
+.preview-hint {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+/* 이메일 카드 */
+.mail-preview {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+  box-shadow: var(--sh-md);
+  max-width: 460px;
+  margin: 0 auto;
+  word-break: keep-all;
+}
+
+/* 배너 */
+.mail-banner {
+  background: var(--grad-banner);
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.mail-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.15) 0%, transparent 65%);
+}
+.mail-banner-orb {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.3);
+  margin: 0 auto 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  position: relative; z-index: 1;
+}
+.mail-banner-title {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 5px;
+  position: relative; z-index: 1;
+}
+.mail-banner-sub {
+  font-size: var(--t-xs);
+  font-family: var(--f-mono);
+  color: rgba(255,255,255,0.8);
+  letter-spacing: 0.08em;
+  position: relative; z-index: 1;
+}
+
+/* 본문 */
+.mail-content { padding: 20px; }
+
+.mail-greeting {
+  font-size: var(--t-sm);
+  color: var(--c-ink-700);
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+/* 정보 카드 (teal) */
+.info-card {
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  border: 1px solid;
+}
+.info-card-teal {
+  background: linear-gradient(145deg, rgba(125,206,245,0.1) 0%, rgba(146,237,212,0.08) 100%);
+  border-color: rgba(125,206,245,0.3);
+}
+.info-card-warn {
+  background: linear-gradient(145deg, rgba(245,166,35,0.08) 0%, rgba(245,166,35,0.04) 100%);
+  border-color: rgba(245,166,35,0.25);
+}
+.info-card-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+}
+.info-card-teal .info-card-title { color: var(--c-teal-deep); }
+.info-card-warn .info-card-title { color: #C47A00; }
+
+.info-list {
+  list-style: none;
+  padding: 0; margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.info-list li {
+  font-size: var(--t-xs);
+  color: var(--c-ink-500);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.info-list li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--c-ink-100);
+  flex-shrink: 0;
+}
+.info-list li b { color: var(--c-ink-700); font-weight: 600; }
+.info-list li .prog { color: var(--c-lavender-deep); font-weight: 700; }
+
+/* 교육과정 */
+.course-section { margin-bottom: 14px; }
+.course-section-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--c-ink-700);
+  margin-bottom: 10px;
+}
+.course-list { display: flex; flex-direction: column; gap: 8px; }
+.course-item { display: flex; align-items: flex-start; gap: 10px; }
+.course-num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--f-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.course-num-1 { background: rgba(212,184,245,0.2); color: var(--c-lavender-deep); }
+.course-num-2 { background: rgba(146,237,212,0.2); color: var(--c-mint-deep); }
+.course-num-3 { background: rgba(125,206,245,0.2); color: var(--c-teal-deep); }
+.course-num-4 { background: rgba(245,194,216,0.2); color: #C44A7A; }
+.course-name { font-size: var(--t-xs); font-weight: 600; color: var(--c-ink-700); }
+.course-desc { font-size: 0.72rem; color: var(--c-ink-300); margin-top: 1px; }
+
+/* CTA */
+.cta-wrap { text-align: center; margin-bottom: 4px; padding: 4px 0; }
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--c-ink-900);
+  color: white;
+  padding: 11px 26px;
+  border-radius: var(--r-full);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: all var(--dur-base) var(--ease-out);
+}
+.cta-btn:hover {
+  background: var(--grad-banner);
+  box-shadow: 0 4px 20px rgba(155,120,220,0.35);
+  transform: translateY(-1px);
+}
+
+/* 푸터 */
+.mail-footer {
+  background: var(--c-surface-2);
+  border-top: 1px solid var(--c-border);
+  padding: 14px 20px;
+}
+.mail-footer-title {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  font-weight: 500;
+  color: var(--c-ink-300);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.mail-footer ul {
+  list-style: none;
+  padding: 0; margin: 0 0 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.mail-footer ul li {
+  font-size: var(--t-xs);
+  color: var(--c-ink-500);
+}
+.mail-footer ul li span {
+  color: var(--c-lavender-deep);
+  font-weight: 500;
+}
+.mail-footer-copy {
+  font-size: 0.7rem;
+  font-family: var(--f-mono);
+  color: var(--c-ink-100);
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════
+   하단 액션
+══════════════════════════════ */
+.modal-actions {
+  border-top: 1px solid var(--c-border);
+  padding: 14px 24px;
+  background: var(--c-surface);
+  flex-shrink: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 22px;
+  border-radius: var(--r-full);
+  font-family: var(--f-sans);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all var(--dur-base) var(--ease-out);
+  letter-spacing: 0.01em;
+}
+.btn-outline {
+  background: transparent;
+  color: var(--c-ink-500);
+  border: 1.5px solid var(--c-border-mid);
+}
+.btn-outline:hover {
+  border-color: var(--c-lavender-deep);
+  color: var(--c-lavender-deep);
+}
+.btn-grad {
+  background: var(--grad-banner);
+  color: white;
+}
+.btn-grad:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(155,120,220,0.4);
+}
+.btn-ghost-mint {
+  background: rgba(146,237,212,0.12);
+  color: var(--c-mint-deep);
+  border: 1.5px solid rgba(146,237,212,0.35);
+}
+.btn-ghost-mint:hover {
+  background: rgba(146,237,212,0.22);
+  border-color: var(--c-mint-mid);
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════
+   그룹 발송 오버레이
+══════════════════════════════ */
+.group-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(14,14,24,0.45);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+.group-overlay.open { display: flex; }
+
+.group-panel {
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  width: 380px;
+  max-width: 92vw;
+  box-shadow: var(--sh-lg);
+  border: 1px solid var(--c-border);
+  overflow: hidden;
+  animation: panel-in 0.2s var(--ease-out);
+}
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.group-panel-header {
+  background: linear-gradient(135deg, rgba(146,237,212,0.2) 0%, rgba(125,206,245,0.15) 100%);
+  border-bottom: 1px solid var(--c-border);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.group-panel-header h4 {
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--c-ink-900);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.group-panel-header h4 span {
+  font-size: 1rem;
+}
+.group-panel-close {
+  background: none;
+  border: none;
+  color: var(--c-ink-300);
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+.group-panel-close:hover { background: var(--c-surface-3); color: var(--c-ink-700); }
+
+.group-panel-body { padding: 16px 20px; }
+
+.group-hint {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--c-border);
+  background: var(--c-surface);
+  cursor: pointer;
+  transition: all var(--dur-fast);
+  user-select: none;
+}
+.group-item:hover { border-color: var(--c-mint-mid); background: rgba(146,237,212,0.05); }
+.group-item.selected {
+  border-color: var(--c-mint-mid);
+  background: rgba(146,237,212,0.1);
+}
+.group-item-left { display: flex; align-items: center; gap: 10px; }
+.group-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.group-name {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  color: var(--c-ink-700);
+}
+.group-count {
+  font-size: var(--t-2xs);
+  font-family: var(--f-mono);
+  color: var(--c-ink-300);
+  margin-top: 1px;
+}
+.group-check {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--c-ink-100);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.6rem;
+  color: white;
+  flex-shrink: 0;
+  transition: all var(--dur-fast);
+}
+.group-item.selected .group-check {
+  background: var(--c-mint-deep);
+  border-color: var(--c-mint-deep);
+}
+
+.group-select-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--t-xs);
+  font-weight: 600;
+  color: var(--c-mint-deep);
+  cursor: pointer;
+  padding: 4px 0 12px;
+  border-bottom: 1px solid var(--c-border);
+  margin-bottom: 12px;
+  user-select: none;
+}
+
+.group-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--c-surface-2);
+  border-radius: var(--r-md);
+  margin-bottom: 16px;
+}
+.group-summary-text {
+  font-size: var(--t-xs);
+  color: var(--c-ink-500);
+}
+.group-summary-count {
+  font-size: var(--t-xs);
+  font-family: var(--f-mono);
+  font-weight: 700;
+  color: var(--c-mint-deep);
+}
+
+.group-panel-footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 14px 20px;
+  border-top: 1px solid var(--c-border);
+  background: var(--c-surface-2);
+}
+</style>
+</head>
+<body>
+
+<div class="modal-box" id="artifacts-component-root-html">
+
+  <!-- ── 헤더 ── -->
+  <div class="modal-header">
+    <div class="header-left">
+      <div class="header-logo">AI</div>
+      <div class="header-text-group">
+        <h3 class="header-title">AI 윤리 교육 플랫폼</h3>
+        <span class="header-subtitle">독려 메일 편집 모드</span>
+      </div>
+    </div>
+    <button class="close-btn" onclick="closeMailModal()">✕</button>
+  </div>
+
+  <!-- ── 본문 ── -->
+  <div class="modal-body">
+
+    <!-- 좌측 편집 패널 -->
+    <div class="edit-panel">
+
+      <div class="edit-section">
+        <div class="edit-section-title">01 · Banner</div>
+        <label class="edit-label">제목</label>
+        <input class="edit-input" id="e-banner-title" value="AI 윤리 교육 안내" oninput="sync()">
+        <label class="edit-label">부제목</label>
+        <input class="edit-input" id="e-banner-sub" value="ETHOS 프로그램" oninput="sync()">
+      </div>
+
+      <div class="edit-section">
+        <div class="edit-section-title">02 · Greeting</div>
+        <label class="edit-label">수신자명</label>
+        <input class="edit-input" id="e-name" value="김철수" oninput="sync()">
+        <label class="edit-label">본문</label>
+        <textarea class="edit-input" id="e-greeting" rows="3" oninput="sync()">당사의 AI 윤리 교육 과정인 ETHOS (Ethics Training for Harmonious Organizational Systems) 프로그램을 기간 내 이수해 주시기 바랍니다.</textarea>
+      </div>
+
+      <div class="edit-section">
+        <div class="edit-section-title">03 · Progress</div>
+        <label class="edit-label">부서</label>
+        <input class="edit-input" id="e-dept" value="기획팀" oninput="sync()">
+        <label class="edit-label">진도율 (%)</label>
+        <input class="edit-input" id="e-progress" value="20" oninput="sync()">
+        <label class="edit-label">최종 접속일</label>
+        <input class="edit-input" id="e-date" value="2026-03-10" oninput="sync()">
+      </div>
+
+      <div class="edit-section">
+        <div class="edit-section-title">04 · Deadline</div>
+        <label class="edit-label">수료 기한</label>
+        <input class="edit-input" id="e-deadline" value="2026년 4월 30일" oninput="sync()">
+      </div>
+
+      <div class="edit-section">
+        <div class="edit-section-title">05 · CTA Button</div>
+        <label class="edit-label">버튼 텍스트</label>
+        <input class="edit-input" id="e-cta-text" value="교육 계속하기" oninput="sync()">
+        <label class="edit-label">링크 URL</label>
+        <input class="edit-input" id="e-cta-url" value="#" oninput="sync()">
+      </div>
+
+      <div class="edit-section">
+        <div class="edit-section-title">06 · Contact</div>
+        <label class="edit-label">AI 윤리 위원회</label>
+        <input class="edit-input" id="e-email1" value="ethics@company.com" oninput="sync()">
+        <label class="edit-label">교육 담당자</label>
+        <input class="edit-input" id="e-email2" value="training@company.com" oninput="sync()">
+      </div>
+
+      <div class="edit-section">
+        <div class="edit-section-title">07 · Footer</div>
+        <label class="edit-label">회사명</label>
+        <input class="edit-input" id="e-company" value="Company" oninput="sync()">
+      </div>
+
+    </div>
+
+    <!-- 우측 프리뷰 -->
+    <div class="preview-panel">
+      <p class="preview-hint">MAIL PREVIEW · 수신자에게 발송될 실제 메일</p>
+
+      <div class="mail-preview">
+
+        <!-- 배너 -->
+        <div class="mail-banner">
+          <div class="mail-banner-orb">✉</div>
+          <div class="mail-banner-title" id="p-banner-title">AI 윤리 교육 안내</div>
+          <div class="mail-banner-sub" id="p-banner-sub">ETHOS 프로그램</div>
+        </div>
+
+        <!-- 본문 -->
+        <div class="mail-content">
+
+          <!-- 인사말 -->
+          <div class="mail-greeting">
+            <b id="p-name">김철수</b> 님, 안녕하세요.<br>
+            <span id="p-greeting">당사의 AI 윤리 교육 과정인 ETHOS (Ethics Training for Harmonious Organizational Systems) 프로그램을 기간 내 이수해 주시기 바랍니다.</span>
+          </div>
+
+          <!-- 현재 진행 상황 -->
+          <div class="info-card info-card-teal">
+            <div class="info-card-title">📊 현재 진행 상황</div>
+            <ul class="info-list">
+              <li><b id="p-name2">김철수</b></li>
+              <li>부서 <b id="p-dept">기획팀</b></li>
+              <li>진도율 <b class="prog" id="p-progress">20%</b></li>
+              <li>최종 접속일 <b id="p-date">2026-03-10</b></li>
+            </ul>
+          </div>
+
+          <!-- 교육 과정 -->
+          <div class="course-section">
+            <div class="course-section-title">📚 교육 과정 안내</div>
+            <div class="course-list">
+              <div class="course-item">
+                <div class="course-num course-num-1">1</div>
+                <div><div class="course-name">AI 윤리 교육 영상</div><div class="course-desc">5가지 주제의 영상으로 AI 윤리 기본 개념 학습</div></div>
+              </div>
+              <div class="course-item">
+                <div class="course-num course-num-2">2</div>
+                <div><div class="course-name">시나리오 시뮬레이터</div><div class="course-desc">실무 상황 기반 챗봇과의 대화를 실습</div></div>
+              </div>
+              <div class="course-item">
+                <div class="course-num course-num-3">3</div>
+                <div><div class="course-name">만족도 테스트</div><div class="course-desc">교육 과정에 대한 피드백 작성</div></div>
+              </div>
+              <div class="course-item">
+                <div class="course-num course-num-4">4</div>
+                <div><div class="course-name">수료증 발급</div><div class="course-desc">교육 수료 및 수료증 획득</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 수료 기한 -->
+          <div class="info-card info-card-warn">
+            <div class="info-card-title">⏰ 수료 기한</div>
+            <p style="font-size:var(--t-xs); color:var(--c-ink-500); line-height:1.65;">
+              모든 임직원은 <b id="p-deadline" style="color:#C47A00;">2026년 4월 30일</b>까지 교육을 완료해주시기 바랍니다.
+            </p>
+          </div>
+
+          <!-- CTA -->
+          <div class="cta-wrap">
+            <a class="cta-btn" id="p-cta" href="#">교육 계속하기 →</a>
+          </div>
+
+        </div>
+
+        <!-- 푸터 -->
+        <div class="mail-footer">
+          <div class="mail-footer-title">Contact</div>
+          <ul>
+            <li>AI 윤리 위원회 · <span id="p-email1"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="4b2e3f232228380b2824263b2a253265282426">[email&#160;protected]</a></span></li>
+            <li>교육 담당자 · <span id="p-email2"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d9adabb8b0b7b0b7be99bab6b4a9b8b7a0f7bab6b4">[email&#160;protected]</a></span></li>
+          </ul>
+          <div class="mail-footer-copy">
+            본 메일은 발신 전용입니다. 회신하지 말아주세요.<br>
+            © 2026 <span id="p-company">Company</span>. All rights reserved.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 하단 액션 -->
+  <div class="modal-actions">
+    <button class="btn btn-outline" onclick="closeMailModal()">닫기</button>
+    <button class="btn btn-ghost-mint" onclick="openGroupModal()">👥 그룹으로 보내기</button>
+    <button class="btn btn-grad" onclick="alert('발송되었습니다!')">이 내용으로 발송하기</button>
+  </div>
+
+</div>
+
+<!-- ── 그룹 발송 오버레이 ── -->
+<div class="group-overlay" id="groupOverlay" onclick="closeGroupModal(event)">
+  <div class="group-panel" id="groupPanel">
+
+    <div class="group-panel-header">
+      <h4><span>👥</span> 그룹 발송 대상 선택</h4>
+      <button class="group-panel-close" onclick="closeGroupModal()">✕</button>
+    </div>
+
+    <div class="group-panel-body">
+      <p class="group-hint">SEND TO GROUP · 발송할 부서를 선택하세요</p>
+
+      <div class="group-select-all" onclick="toggleAll()">
+        <div class="group-check" id="check-all" style="border-color:var(--c-mint-deep);">✓</div>
+        전체 선택
+      </div>
+
+      <div class="group-list">
+        <div class="group-item selected" data-count="8"  onclick="toggleGroup(this)">
+          <div class="group-item-left">
+            <div class="group-dot" style="background:#9B78DC;"></div>
+            <div>
+              <div class="group-name">기획팀</div>
+              <div class="group-count">미완수 8명</div>
+            </div>
+          </div>
+          <div class="group-check">✓</div>
+        </div>
+        <div class="group-item selected" data-count="5" onclick="toggleGroup(this)">
+          <div class="group-item-left">
+            <div class="group-dot" style="background:#44C4A2;"></div>
+            <div>
+              <div class="group-name">개발 A팀</div>
+              <div class="group-count">미완수 5명</div>
+            </div>
+          </div>
+          <div class="group-check">✓</div>
+        </div>
+        <div class="group-item selected" data-count="6" onclick="toggleGroup(this)">
+          <div class="group-item-left">
+            <div class="group-dot" style="background:#2E9DD4;"></div>
+            <div>
+              <div class="group-name">개발 B팀</div>
+              <div class="group-count">미완수 6명</div>
+            </div>
+          </div>
+          <div class="group-check">✓</div>
+        </div>
+        <div class="group-item selected" data-count="11" onclick="toggleGroup(this)">
+          <div class="group-item-left">
+            <div class="group-dot" style="background:#F5A623;"></div>
+            <div>
+              <div class="group-name">데이터팀</div>
+              <div class="group-count">미완수 11명</div>
+            </div>
+          </div>
+          <div class="group-check">✓</div>
+        </div>
+        <div class="group-item selected" data-count="3" onclick="toggleGroup(this)">
+          <div class="group-item-left">
+            <div class="group-dot" style="background:#C44A7A;"></div>
+            <div>
+              <div class="group-name">QA팀</div>
+              <div class="group-count">미완수 3명</div>
+            </div>
+          </div>
+          <div class="group-check">✓</div>
+        </div>
+      </div>
+
+      <div class="group-summary">
+        <span class="group-summary-text">선택된 수신자</span>
+        <span class="group-summary-count" id="totalCount">총 33명</span>
+      </div>
+    </div>
+
+    <div class="group-panel-footer">
+      <button class="btn btn-outline" onclick="closeGroupModal()" style="padding:8px 18px;">취소</button>
+      <button class="btn btn-ghost-mint" onclick="sendToGroup()" style="padding:8px 18px;">👥 그룹 발송하기</button>
+    </div>
+
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function openGroupModal() {
+    document.getElementById('groupOverlay').classList.add('open');
+  }
+  function closeGroupModal(e) {
+    if (!e || e.target === document.getElementById('groupOverlay')) {
+      document.getElementById('groupOverlay').classList.remove('open');
+    }
+  }
+  function toggleGroup(el) {
+    el.classList.toggle('selected');
+    updateCount();
+    syncAllCheck();
+  }
+  function toggleAll() {
+    const items = document.querySelectorAll('.group-item');
+    const allSelected = [...items].every(i => i.classList.contains('selected'));
+    items.forEach(i => allSelected ? i.classList.remove('selected') : i.classList.add('selected'));
+    updateCount();
+    syncAllCheck();
+  }
+  function syncAllCheck() {
+    const items = document.querySelectorAll('.group-item');
+    const allSelected = [...items].every(i => i.classList.contains('selected'));
+    const ca = document.getElementById('check-all');
+    ca.style.background = allSelected ? 'var(--c-mint-deep)' : '';
+    ca.style.borderColor = 'var(--c-mint-deep)';
+    ca.textContent = allSelected ? '✓' : '';
+  }
+  function updateCount() {
+    const selected = document.querySelectorAll('.group-item.selected');
+    const total = [...selected].reduce((s, el) => s + parseInt(el.dataset.count), 0);
+    document.getElementById('totalCount').textContent = `총 ${total}명`;
+  }
+  function sendToGroup() {
+    const names = [...document.querySelectorAll('.group-item.selected')]
+      .map(el => el.querySelector('.group-name').textContent);
+    if (names.length === 0) { alert('발송할 그룹을 선택해주세요.'); return; }
+    alert(`${names.join(', ')}에 그룹 발송되었습니다!`);
+    closeGroupModal();
+  }
+  function v(id) { return g(id) ? g(id).value : ''; }
+
+  function sync() {
+    g('p-banner-title').textContent = v('e-banner-title');
+    g('p-banner-sub').textContent   = v('e-banner-sub');
+    g('p-name').textContent         = v('e-name');
+    g('p-name2').textContent        = v('e-name');
+    g('p-greeting').textContent     = v('e-greeting');
+    g('p-dept').textContent         = v('e-dept');
+    g('p-progress').textContent     = v('e-progress') + '%';
+    g('p-date').textContent         = v('e-date');
+  }
+  function g(id) { return document.getElementById(id); }
+
+  // --- Iframe Communication ---
+  function closeMailModal() {
+    window.parent.postMessage({ type: 'close-modal' }, '*');
+  }
+
+  function initMailModal(data) {
+    if (g('e-name')) g('e-name').value = data.name || '';
+    if (g('e-progress')) g('e-progress').value = data.progress || '0';
+    if (g('e-dept')) g('e-dept').value = data.dept || '';
+    if (g('e-date')) g('e-date').value = data.date || '';
+    sync();
+  }
+
+  // Handle incoming messages for initialization
+  window.addEventListener('message', (event) => {
+    if (event.data.type === 'init-modal') {
+      initMailModal(event.data.data);
+    }
+  });
+</script>
+</body>
+</html>
