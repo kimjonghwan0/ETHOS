@@ -1,29 +1,92 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ETHOS - 관리자 대시보드</title>
-    <link rel="stylesheet" href="assets/style_v2.css">
+    <link rel="stylesheet" href="assets/style.css">
     <script src="assets/app.js"></script>
     <!-- SheetJS for Excel export -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 24px; }
-        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 24px; }
-        .stat-card { text-align: center; }
-        .stat-card h3 { color: var(--text-muted); font-size: 1rem; margin-bottom: 8px; }
-        .stat-card h1 { color: var(--primary); font-size: 2.2rem; margin-bottom: 4px; }
-        .stat-card span { font-size: 0.85rem; color: #888; }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
 
-        .box { background: #f9fafb; padding: 24px; border-radius: 12px; }
-        .box h4 { margin-bottom: 16px; color: var(--text-main); font-size: 1.05rem; border-bottom: 1px solid var(--border-color); padding-bottom: 12px; }
-        .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.95rem; }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 24px;
+        }
 
-        .bar-wrap { width: 120px; background: #e5e7eb; height: 8px; border-radius: 4px; overflow: hidden; }
-        .bar-fill { height: 100%; background: var(--primary); }
-        .bar-fill.warn { background: #f59e0b; }
-        .bar-fill.danger { background: #ef4444; }
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .stat-card h1 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 4px;
+        }
+
+        .stat-card span {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .box {
+            background: #f9fafb;
+            padding: 24px;
+            border-radius: 12px;
+        }
+
+        .box h4 {
+            margin-bottom: 16px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .bar-wrap {
+            width: 120px;
+            background: #e5e7eb;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .bar-fill.warn {
+            background: #f59e0b;
+        }
+
+        .bar-fill.danger {
+            background: #ef4444;
+        }
 
         /* 2x2 매트릭스 대시보드 */
         .matrix-dashboard {
@@ -50,9 +113,20 @@
             gap: 8px;
         }
 
-        .quad-emoji { font-size: 1.3rem; }
-        .quad-name { font-weight: 700; font-size: 0.9rem; }
-        .quad-sub { font-size: 0.72rem; color: #64748b; margin-top: 1px; }
+        .quad-emoji {
+            font-size: 1.3rem;
+        }
+
+        .quad-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .quad-sub {
+            font-size: 0.72rem;
+            color: #64748b;
+            margin-top: 1px;
+        }
 
         .quad-stat {
             display: flex;
@@ -86,25 +160,73 @@
         }
 
         /* 유형별 색상 */
-        .quad-동반자형 { background: #fdf2f8; border-color: #f0abdb; }
-        .quad-동반자형 .quad-name { color: #9d174d; }
-        .quad-동반자형 .quad-pct { color: #9d174d; }
-        .quad-동반자형 .quad-bar-fill { background: #f472b6; }
+        .quad-동반자형 {
+            background: #fdf2f8;
+            border-color: #f0abdb;
+        }
 
-        .quad-해결사형 { background: #f0fdf4; border-color: #86efac; }
-        .quad-해결사형 .quad-name { color: #15803d; }
-        .quad-해결사형 .quad-pct { color: #15803d; }
-        .quad-해결사형 .quad-bar-fill { background: #4ade80; }
+        .quad-동반자형 .quad-name {
+            color: #9d174d;
+        }
 
-        .quad-공감형 { background: #fefce8; border-color: #fde047; }
-        .quad-공감형 .quad-name { color: #854d0e; }
-        .quad-공감형 .quad-pct { color: #854d0e; }
-        .quad-공감형 .quad-bar-fill { background: #facc15; }
+        .quad-동반자형 .quad-pct {
+            color: #9d174d;
+        }
 
-        .quad-분석가형 { background: #eff6ff; border-color: #93c5fd; }
-        .quad-분석가형 .quad-name { color: #1e40af; }
-        .quad-분석가형 .quad-pct { color: #1e40af; }
-        .quad-분석가형 .quad-bar-fill { background: #60a5fa; }
+        .quad-동반자형 .quad-bar-fill {
+            background: #f472b6;
+        }
+
+        .quad-해결사형 {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+
+        .quad-해결사형 .quad-name {
+            color: #15803d;
+        }
+
+        .quad-해결사형 .quad-pct {
+            color: #15803d;
+        }
+
+        .quad-해결사형 .quad-bar-fill {
+            background: #4ade80;
+        }
+
+        .quad-공감형 {
+            background: #fefce8;
+            border-color: #fde047;
+        }
+
+        .quad-공감형 .quad-name {
+            color: #854d0e;
+        }
+
+        .quad-공감형 .quad-pct {
+            color: #854d0e;
+        }
+
+        .quad-공감형 .quad-bar-fill {
+            background: #facc15;
+        }
+
+        .quad-분석가형 {
+            background: #eff6ff;
+            border-color: #93c5fd;
+        }
+
+        .quad-분석가형 .quad-name {
+            color: #1e40af;
+        }
+
+        .quad-분석가형 .quad-pct {
+            color: #1e40af;
+        }
+
+        .quad-분석가형 .quad-bar-fill {
+            background: #60a5fa;
+        }
 
         .matrix-axis-wrapper {
             position: relative;
@@ -149,63 +271,144 @@
             line-height: 1.6;
         }
 
-        .insight-blue { color: #1e40af; background: #eff6ff; border: 1px solid #bfdbfe; }
-        .insight-amber { color: #92400e; background: #fffbeb; border: 1px solid #fde68a; }
-        .insight-green { color: #065f46; background: #ecfdf5; border: 1px solid #a7f3d0; }
+        .insight-blue {
+            color: #1e40af;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+
+        .insight-amber {
+            color: #92400e;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+        }
+
+        .insight-green {
+            color: #065f46;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+        }
 
         /* 기준 설명 */
         .criteria-admin {
             margin-top: 16px;
             padding: 12px 16px;
-            background: rgba(255,255,255,0.7);
+            background: rgba(255, 255, 255, 0.7);
             border: 1px dashed #cbd5e1;
             border-radius: 8px;
             font-size: 0.82rem;
             color: #475569;
         }
 
-        .criteria-admin b { color: #0f172a; }
+        .criteria-admin b {
+            color: #0f172a;
+        }
 
         /* 미완수 사원 표 */
         .admin-table {
-            width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 0.95rem;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+            font-size: 0.95rem;
         }
-        .admin-table th, .admin-table td {
-            text-align: left; padding: 12px; border-bottom: 1px solid var(--border-color);
+
+        .admin-table th,
+        .admin-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid var(--border-color);
         }
-        .admin-table th { background: #f3f4f6; color: #4b5563; font-weight: 600; }
+
+        .admin-table th {
+            background: #f3f4f6;
+            color: #4b5563;
+            font-weight: 600;
+        }
 
         .modal-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);
-            display:none; justify-content:center; align-items:center; z-index:1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
+
         .modal-box {
-            background:white; border-radius:12px; padding:24px; width:400px; max-width:90%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
-        .modal-box h3 { margin-top:0; color:var(--primary); margin-bottom:16px; border-bottom:1px solid #eee; padding-bottom:12px; }
-        .modal-body { background:#f9fafb; padding:16px; border-radius:8px; border:1px solid #e5e7eb; font-size:0.95rem; line-height:1.6; margin-bottom:16px; white-space: pre-wrap; }
-        .modal-actions { display:flex; justify-content:flex-end; gap:12px; }
+
+        .modal-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+            margin-bottom: 16px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        .modal-body {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 16px;
+            white-space: pre-wrap;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
 
         /* mailModal 간격/패딩 반응형(컨텐츠가 너무 벌어져 보이는 문제 완화) */
         /* mailModal Overlay */
         #mailModal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.5);
-            display: none; justify-content: center; align-items: center; z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
         }
-        #mailModal.active { display: flex; }
-        
+
+        #mailModal.active {
+            display: flex;
+        }
+
         /* Modal Iframe Container */
         #mailModal .modal-container {
-            width: 100%; max-width: 920px; height: 92vh;
-            background: white; border-radius: 20px; overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 920px;
+            height: 92vh;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             position: relative;
         }
+
         #mailModal iframe {
-            width: 100%; height: 100%; border: none;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
+
         @media (max-width: 520px) {
             #mailModal {
                 --mail-modal-pad: 16px;
@@ -222,12 +425,29 @@
             padding: 2px 8px;
             border-radius: 4px;
         }
-        .badge-동반자형 { background: #fce7f3; color: #9d174d; }
-        .badge-해결사형 { background: #dcfce7; color: #15803d; }
-        .badge-공감형 { background: #fef9c3; color: #854d0e; }
-        .badge-분석가형 { background: #dbeafe; color: #1e40af; }
+
+        .badge-동반자형 {
+            background: #fce7f3;
+            color: #9d174d;
+        }
+
+        .badge-해결사형 {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-공감형 {
+            background: #fef9c3;
+            color: #854d0e;
+        }
+
+        .badge-분석가형 {
+            background: #dbeafe;
+            color: #1e40af;
+        }
     </style>
 </head>
+
 <body>
     <div class="app-container">
         <div class="main-area" style="width: 100%;">
@@ -237,11 +457,14 @@
                 <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 32px;">
                     <div>
                         <h2 style="margin-bottom: 8px;">HR 관리자 대시보드</h2>
-                        <p class="text-gray" style="margin-bottom: 0;">전사 AI 윤리 교육 이수 및 시뮬레이션 평가 현황입니다. (가이드라인 및 예시 데이터)</p>
+                        <p class="text-gray" style="margin-bottom: 0;">전사 AI 윤리 교육 이수 및 시뮬레이션 평가 현황입니다. (가이드라인 및 예시 데이터)
+                        </p>
                     </div>
                     <div style="display: flex; gap: 12px;">
-                        <button class="btn btn-secondary" style="border-color:#10b981; color:#10b981;" onclick="exportDashboardSummaryExcel()">📊 수료결과보고서</button>
-                        <button class="btn btn-secondary" style="border-color:#3b82f6; color:#3b82f6;" onclick="exportProgressExcel()">📊 진도현황 보고서</button>
+                        <button class="btn btn-secondary" style="border-color:#10b981; color:#10b981;"
+                            onclick="exportDashboardSummaryExcel()">📊 수료결과보고서</button>
+                        <button class="btn btn-secondary" style="border-color:#3b82f6; color:#3b82f6;"
+                            onclick="exportProgressExcel()">📊 진도현황 보고서</button>
                     </div>
                 </div>
 
@@ -269,11 +492,41 @@
                     <div class="card">
                         <div class="box">
                             <h4>🏢 팀별 이수 현황</h4>
-                            <div class="row"><span>개발 A팀</span><div style="display:flex; align-items:center; gap:10px;"><div class="bar-wrap"><div class="bar-fill warn" style="width:60%;"></div></div><span>60%</span></div></div>
-                            <div class="row"><span>개발 B팀</span><div style="display:flex; align-items:center; gap:10px;"><div class="bar-wrap"><div class="bar-fill" style="width:100%;"></div></div><span>100%</span></div></div>
-                            <div class="row"><span>데이터팀</span><div style="display:flex; align-items:center; gap:10px;"><div class="bar-wrap"><div class="bar-fill warn" style="width:60%;"></div></div><span>60%</span></div></div>
-                            <div class="row"><span>기획팀</span><div style="display:flex; align-items:center; gap:10px;"><div class="bar-wrap"><div class="bar-fill danger" style="width:40%;"></div></div><span>40%</span></div></div>
-                            <div class="row"><span>QA팀</span><div style="display:flex; align-items:center; gap:10px;"><div class="bar-wrap"><div class="bar-fill" style="width:80%;"></div></div><span>80%</span></div></div>
+                            <div class="row"><span>개발 A팀</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div class="bar-wrap">
+                                        <div class="bar-fill warn" style="width:60%;"></div>
+                                    </div><span>60%</span>
+                                </div>
+                            </div>
+                            <div class="row"><span>개발 B팀</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div class="bar-wrap">
+                                        <div class="bar-fill" style="width:100%;"></div>
+                                    </div><span>100%</span>
+                                </div>
+                            </div>
+                            <div class="row"><span>데이터팀</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div class="bar-wrap">
+                                        <div class="bar-fill warn" style="width:60%;"></div>
+                                    </div><span>60%</span>
+                                </div>
+                            </div>
+                            <div class="row"><span>기획팀</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div class="bar-wrap">
+                                        <div class="bar-fill danger" style="width:40%;"></div>
+                                    </div><span>40%</span>
+                                </div>
+                            </div>
+                            <div class="row"><span>QA팀</span>
+                                <div style="display:flex; align-items:center; gap:10px;">
+                                    <div class="bar-wrap">
+                                        <div class="bar-fill" style="width:80%;"></div>
+                                    </div><span>80%</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="card">
@@ -292,13 +545,20 @@
                 <div class="card" style="margin-bottom: 24px;">
                     <div class="box">
                         <h4>📋 시나리오별 완료 현황</h4>
-                        <div class="row" style="font-family: monospace; color: #444;"><span>채용 AI 편향</span> <span>[✅ 완료 55%] [🔄 재도전 후 완료 27%] [🎲 전환 18%]</span></div>
-                        <div class="row" style="font-family: monospace; color: #444;"><span>사내 데이터 유출</span> <span>[✅ 완료 40%] [🔄 재도전 후 완료 35%] [🎲 전환 25%]</span></div>
-                        <div class="row" style="font-family: monospace; color: #444;"><span>AI 학습과 개인정보</span> <span>[✅ 완료 50%] [🔄 재도전 후 완료 30%] [🎲 전환 20%]</span></div>
-                        <div class="row" style="font-family: monospace; color: #ef4444;"><span>AI 할루시네이션</span> <span>[✅ 완료 30%] [🔄 재도전 후 완료 25%] [🎲 전환 45%]</span></div>
-                        <div class="row" style="font-family: monospace; color: #444;"><span>AI 생성 콘텐츠 저작권</span> <span>[✅ 완료 45%] [🔄 재도전 후 완료 33%] [🎲 전환 22%]</span></div>
+                        <div class="row" style="font-family: monospace; color: #444;"><span>채용 AI 편향</span> <span>[✅ 완료
+                                55%] [🔄 재도전 후 완료 27%] [🎲 전환 18%]</span></div>
+                        <div class="row" style="font-family: monospace; color: #444;"><span>사내 데이터 유출</span> <span>[✅ 완료
+                                40%] [🔄 재도전 후 완료 35%] [🎲 전환 25%]</span></div>
+                        <div class="row" style="font-family: monospace; color: #444;"><span>AI 학습과 개인정보</span> <span>[✅
+                                완료 50%] [🔄 재도전 후 완료 30%] [🎲 전환 20%]</span></div>
+                        <div class="row" style="font-family: monospace; color: #ef4444;"><span>AI 할루시네이션</span> <span>[✅
+                                완료 30%] [🔄 재도전 후 완료 25%] [🎲 전환 45%]</span></div>
+                        <div class="row" style="font-family: monospace; color: #444;"><span>AI 생성 콘텐츠 저작권</span>
+                            <span>[✅ 완료 45%] [🔄 재도전 후 완료 33%] [🎲 전환 22%]</span>
+                        </div>
                     </div>
-                    <p style="color:#b45309; background:#fffbeb; padding:12px; border-radius:8px; border:1px solid #fde68a; font-size:0.9rem; margin-top:16px;">
+                    <p
+                        style="color:#b45309; background:#fffbeb; padding:12px; border-radius:8px; border:1px solid #fde68a; font-size:0.9rem; margin-top:16px;">
                         ⚠️ <b>[AI 할루시네이션]</b> 시나리오는 타 시나리오 대비 전환율이 가장 높습니다. 난이도 조정을 검토해보세요.
                     </p>
                 </div>
@@ -308,7 +568,9 @@
                     <div class="box">
                         <h4>🧠 설득 스타일 분포</h4>
 
-                        <div class="axis-label-top">← 감정 우선 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 논리 우선 →</div>
+                        <div class="axis-label-top">← 감정 우선
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            논리 우선 →</div>
                         <div class="axis-label-side">
                             <div class="axis-vert">
                                 <span>대안 제시 ↑</span>
@@ -327,7 +589,9 @@
                                         </div>
                                         <div class="quad-stat">
                                             <div>
-                                                <div class="quad-bar"><div class="quad-bar-fill" style="width:28%;"></div></div>
+                                                <div class="quad-bar">
+                                                    <div class="quad-bar-fill" style="width:28%;"></div>
+                                                </div>
                                                 <div class="quad-count">9명</div>
                                             </div>
                                             <div class="quad-pct">28%</div>
@@ -344,7 +608,9 @@
                                         </div>
                                         <div class="quad-stat">
                                             <div>
-                                                <div class="quad-bar"><div class="quad-bar-fill" style="width:35%;"></div></div>
+                                                <div class="quad-bar">
+                                                    <div class="quad-bar-fill" style="width:35%;"></div>
+                                                </div>
                                                 <div class="quad-count">12명</div>
                                             </div>
                                             <div class="quad-pct">35%</div>
@@ -361,7 +627,9 @@
                                         </div>
                                         <div class="quad-stat">
                                             <div>
-                                                <div class="quad-bar"><div class="quad-bar-fill" style="width:18%;"></div></div>
+                                                <div class="quad-bar">
+                                                    <div class="quad-bar-fill" style="width:18%;"></div>
+                                                </div>
                                                 <div class="quad-count">6명</div>
                                             </div>
                                             <div class="quad-pct">18%</div>
@@ -378,7 +646,9 @@
                                         </div>
                                         <div class="quad-stat">
                                             <div>
-                                                <div class="quad-bar"><div class="quad-bar-fill" style="width:19%;"></div></div>
+                                                <div class="quad-bar">
+                                                    <div class="quad-bar-fill" style="width:19%;"></div>
+                                                </div>
                                                 <div class="quad-count">7명</div>
                                             </div>
                                             <div class="quad-pct">19%</div>
@@ -403,12 +673,18 @@
                                 </div>
                             </div>
                             <div style="padding-top:10px; border-top:1px dashed #cbd5e1;">
-                                <div style="margin-bottom:8px;"><b>📚 학술적 근거</b> — Gary Yukl의 영향력 행사 전략(IBQ 모델)을 ETHOS 시나리오 맥락에 맞게 재구성했습니다.</div>
-                                <div style="display:flex; flex-direction:column; gap:4px; font-size:0.82rem; color:#475569;">
-                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">🤝 동반자형</span><span>Ingratiation + Consultation</span></div>
-                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">🛠️ 해결사형</span><span>Rational Persuasion + Consultation</span></div>
-                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">💬 공감형</span><span>Ingratiation + Apprising</span></div>
-                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">🔍 분석가형</span><span>Rational Persuasion + Pressure</span></div>
+                                <div style="margin-bottom:8px;"><b>📚 학술적 근거</b> — Gary Yukl의 영향력 행사 전략(IBQ 모델)을 ETHOS
+                                    시나리오 맥락에 맞게 재구성했습니다.</div>
+                                <div
+                                    style="display:flex; flex-direction:column; gap:4px; font-size:0.82rem; color:#475569;">
+                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">🤝
+                                            동반자형</span><span>Ingratiation + Consultation</span></div>
+                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">🛠️
+                                            해결사형</span><span>Rational Persuasion + Consultation</span></div>
+                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">💬
+                                            공감형</span><span>Ingratiation + Apprising</span></div>
+                                    <div style="display:flex; gap:8px;"><span style="min-width:80px;">🔍
+                                            분석가형</span><span>Rational Persuasion + Pressure</span></div>
                                 </div>
                             </div>
                         </div>
@@ -461,7 +737,8 @@
                                     <td style="padding:8px; text-align:center;">25%</td>
                                     <td style="padding:8px; text-align:center;">10%</td>
                                     <td style="padding:8px; text-align:center; font-weight:600; color:#1e40af;">50%</td>
-                                    <td style="padding:8px; font-size:0.82rem; color:#b45309;">⚠️ 분석가형 집중. 대안 제시 교육 필요</td>
+                                    <td style="padding:8px; font-size:0.82rem; color:#b45309;">⚠️ 분석가형 집중. 대안 제시 교육 필요
+                                    </td>
                                 </tr>
                                 <tr style="border-bottom:1px solid #f1f5f9;">
                                     <td style="padding:8px; font-weight:600;">기획팀</td>
@@ -469,7 +746,8 @@
                                     <td style="padding:8px; text-align:center;">20%</td>
                                     <td style="padding:8px; text-align:center; font-weight:600; color:#854d0e;">35%</td>
                                     <td style="padding:8px; text-align:center;">10%</td>
-                                    <td style="padding:8px; font-size:0.82rem; color:#b45309;">⚠️ 공감형 다수. 논리 근거 강화 필요</td>
+                                    <td style="padding:8px; font-size:0.82rem; color:#b45309;">⚠️ 공감형 다수. 논리 근거 강화 필요
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td style="padding:8px; font-weight:600;">QA팀</td>
@@ -501,11 +779,51 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td>기획팀</td><td>김철수</td><td>20%</td><td>2026-03-10</td><td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;" onclick="openMailModal('김철수', 20, '기획팀', '2026-03-10')">📧 독려 메일</button></td></tr>
-                                <tr><td>기획팀</td><td>이영희</td><td>40%</td><td>2026-03-08</td><td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;" onclick="openMailModal('이영희', 40, '기획팀', '2026-03-08')">📧 독려 메일</button></td></tr>
-                                <tr><td>개발 A팀</td><td>박지훈</td><td>60%</td><td>2026-03-12</td><td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;" onclick="openMailModal('박지훈', 60, '개발 A팀', '2026-03-12')">📧 독려 메일</button></td></tr>
-                                <tr><td>데이터팀</td><td>최민수</td><td>60%</td><td>2026-03-11</td><td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;" onclick="openMailModal('최민수', 60, '데이터팀', '2026-03-11')">📧 독려 메일</button></td></tr>
-                                <tr><td>QA팀</td><td>정수진</td><td>80%</td><td>2026-03-13</td><td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;" onclick="openMailModal('정수진', 80, 'QA팀', '2026-03-13')">📧 독려 메일</button></td></tr>
+                                <tr>
+                                    <td>기획팀</td>
+                                    <td>김철수</td>
+                                    <td>20%</td>
+                                    <td>2026-03-10</td>
+                                    <td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;"
+                                            onclick="openMailModal('김철수', 20, '기획팀', '2026-03-10')">📧 독려 메일</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>기획팀</td>
+                                    <td>이영희</td>
+                                    <td>40%</td>
+                                    <td>2026-03-08</td>
+                                    <td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;"
+                                            onclick="openMailModal('이영희', 40, '기획팀', '2026-03-08')">📧 독려 메일</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>개발 A팀</td>
+                                    <td>박지훈</td>
+                                    <td>60%</td>
+                                    <td>2026-03-12</td>
+                                    <td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;"
+                                            onclick="openMailModal('박지훈', 60, '개발 A팀', '2026-03-12')">📧 독려 메일</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>데이터팀</td>
+                                    <td>최민수</td>
+                                    <td>60%</td>
+                                    <td>2026-03-11</td>
+                                    <td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;"
+                                            onclick="openMailModal('최민수', 60, '데이터팀', '2026-03-11')">📧 독려 메일</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>QA팀</td>
+                                    <td>정수진</td>
+                                    <td>80%</td>
+                                    <td>2026-03-13</td>
+                                    <td><button class="btn btn-secondary" style="padding:4px 12px; font-size:0.85rem;"
+                                            onclick="openMailModal('정수진', 80, 'QA팀', '2026-03-13')">📧 독려 메일</button>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -526,7 +844,7 @@
         function openMailModal(name, progress, dept, lastDate) {
             const modal = document.getElementById('mailModal');
             const iframe = document.getElementById('mailIframe');
-            
+
             modal.classList.add('active');
 
             const employeeData = {
@@ -556,7 +874,7 @@
         }
 
         function confirmSendMail() {
-            if(confirm("이 내용으로 독려 메일을 발송하시겠습니까?")) {
+            if (confirm("이 내용으로 독려 메일을 발송하시겠습니까?")) {
                 alert("성공적으로 발송되었습니다.");
                 closeMailModal();
             }
@@ -601,14 +919,15 @@
         function exportProgressExcel() {
             // 진도현황 보고서 (현재 화면의 미완수자 명단 테이블 기반 추출)
             const table = document.getElementById('emp-table');
-            const wb = XLSX.utils.table_to_book(table, {sheet: "진도현황"});
-            
+            const wb = XLSX.utils.table_to_book(table, { sheet: "진도현황" });
+
             // '관리' (버튼) 열 제거 작업 (선택적)
             const ws = wb.Sheets["진도현황"];
             // 간단하게 컬럼 헤더만 덮어쓰기 (실제로는 셀 범위를 재조정해야 하나 기본 table_to_book이 유용)
-            
+
             XLSX.writeFile(wb, "진도현황_보고서.xlsx");
         }
     </script>
 </body>
+
 </html>
