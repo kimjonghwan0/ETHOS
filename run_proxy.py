@@ -32,7 +32,7 @@ class ProxyHandler(SimpleHTTPRequestHandler):
         # API 이외의 GET 요청은 기본 정적 파일 제공기능 사용
         # 기본 문서를 index_v2.html로 설정
         if self.path == '/':
-            self.path = '/index_v2.html'
+            self.path = '/index.html'
         
         return super().do_GET()
 
@@ -120,11 +120,11 @@ if __name__ == '__main__':
         
         print(f"✅ 로컬 서버가 시작되었습니다! API 키는 백엔드에 안전하게 보관됩니다.")
         print(f"웹 브라우저에서 아래 주소로 접속하세요:")
-        print(f"👉 http://localhost:{PORT}/index_v2.html")
+        print(f"👉 http://localhost:{PORT}/index.html")
         
         # 자동으로 브라우저 열기
         try:
-            webbrowser.open(f"http://localhost:{PORT}/index_v2.html")
+            webbrowser.open(f"http://localhost:{PORT}/index.html")
         except:
             pass
             

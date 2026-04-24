@@ -26,7 +26,7 @@ const State = {
         localStorage.removeItem('ethos_sim_started');
         localStorage.removeItem('ethos_active_scenario');
         localStorage.removeItem('ethos_chat_history');
-        window.location.href = 'index_v2.html';
+        window.location.href = 'index.html';
     }
 };
 
@@ -37,7 +37,7 @@ function renderSidebar() {
 
     const curStage = State.getStage();
     const curPercent = STAGE_PROGRESS[curStage] || 0;
-    
+
     // Video specific logic
     const videoIdx = parseInt(localStorage.getItem('ethos_video_idx') || '0', 10);
 
@@ -64,7 +64,7 @@ function renderSidebar() {
         let isDone = i < curStage;
         let isActive = i === curStage;
         let isUpcoming = i > curStage;
-        
+
         // Node Status Styling
         let groupIconClass = '';
         if (isDone) groupIconClass = 'done';
@@ -73,7 +73,7 @@ function renderSidebar() {
         let groupIconStr = groupIcons[i] || 'folder';
         let lastGroupClass = (i === CURRICULUM.length - 1) ? 'last-group' : '';
         let noChildrenClass = (group.items.length === 0) ? 'no-children' : '';
-        
+
         let titleHtml = group.title;
         if (isDone || isActive) {
             let targetUrl = group.url || '#';
@@ -85,7 +85,7 @@ function renderSidebar() {
                 <div class="tree-group-icon ${groupIconClass}">
                     <span class="material-symbols-rounded" style="font-size: 1.2rem;">${groupIconStr}</span>
                 </div>
-                <div class="tree-group-title" style="color: ${(isActive || isDone) ? 'var(--c-ink-900)' : 'var(--c-ink-500)'}; width:100%; cursor:${(isDone || isActive)?'pointer':'default'};">
+                <div class="tree-group-title" style="color: ${(isActive || isDone) ? 'var(--c-ink-900)' : 'var(--c-ink-500)'}; width:100%; cursor:${(isDone || isActive) ? 'pointer' : 'default'};">
                     ${titleHtml}
                 </div>
             </div>
@@ -95,18 +95,18 @@ function renderSidebar() {
             let itemStatus = 'upcoming';
             let itemIconStr = 'radio_button_unchecked';
             let itemLinkAble = false;
-            
+
             if (i < curStage) {
                 itemStatus = 'done';
                 itemIconStr = 'check_circle';
                 itemLinkAble = true;
             } else if (i === curStage) {
                 if (i === 1) { // Video stage logic
-                    if (j < videoIdx) { 
-                        itemStatus = 'done'; itemIconStr = 'check_circle'; itemLinkAble = true; 
+                    if (j < videoIdx) {
+                        itemStatus = 'done'; itemIconStr = 'check_circle'; itemLinkAble = true;
                     }
-                    else if (j === videoIdx) { 
-                        itemStatus = 'active'; itemIconStr = 'radio_button_checked'; itemLinkAble = true; 
+                    else if (j === videoIdx) {
+                        itemStatus = 'active'; itemIconStr = 'radio_button_checked'; itemLinkAble = true;
                     }
                 } else {
                     itemStatus = 'active';
@@ -116,12 +116,12 @@ function renderSidebar() {
             }
 
             let lastChildClass = (j === group.items.length - 1) ? 'last-child' : '';
-            
+
             let itemContent = `<span>${item}</span>`;
-            if(itemLinkAble) {
+            if (itemLinkAble) {
                 let nodeUrl = group.url || '#';
                 // 비디오 탭의 경우 해당 비디오 인덱스로 이동하는 기능이 필요할 경우 여기서 분기 (지금은 페이지 이동만 구현)
-                itemContent = `<a href="${nodeUrl}" style="text-decoration:none; color:inherit; display:flex; align-items:center; width:100%; cursor:pointer;" onclick="if('${nodeUrl}'==='#') { event.preventDefault(); return false; } if(${i===1}){ localStorage.setItem('ethos_video_idx', '${j}'); }">${item}</a>`;
+                itemContent = `<a href="${nodeUrl}" style="text-decoration:none; color:inherit; display:flex; align-items:center; width:100%; cursor:pointer;" onclick="if('${nodeUrl}'==='#') { event.preventDefault(); return false; } if(${i === 1}){ localStorage.setItem('ethos_video_idx', '${j}'); }">${item}</a>`;
             }
 
             html += `<div class="tree-child ${itemStatus} ${lastChildClass}">
@@ -153,9 +153,9 @@ function renderTopbar() {
             </div>
         </div>
         <div class="topbar-right">
-            ${user.isAdmin 
-                ? '<button class="btn btn-secondary" onclick="window.location.href=\'intro_v2.html\'">👥 사용자 모드</button>'
-                : '<button class="btn btn-secondary" onclick="window.location.href=\'admin_v2.html\'">⚙️ 관리자 페이지</button>'}
+            ${user.isAdmin
+            ? '<button class="btn btn-secondary" onclick="window.location.href=\'intro_v2.html\'">👥 사용자 모드</button>'
+            : '<button class="btn btn-secondary" onclick="window.location.href=\'admin_v2.html\'">⚙️ 관리자 페이지</button>'}
             <button class="btn btn-secondary" onclick="State.logout()">🚪 로그아웃</button>
         </div>
     `;
@@ -165,12 +165,12 @@ function renderTopbar() {
 function checkAuth() {
     const user = State.getUser();
     const currentPage = window.location.pathname.split('/').pop() || 'index_v2.html';
-    
+
     if (!user && currentPage !== 'index_v2.html' && currentPage !== '') {
         window.location.href = 'index_v2.html';
         return false;
     }
-    
+
     if (user && (currentPage === 'index_v2.html' || currentPage === '')) {
         // Clear all session info when moving to login page
         localStorage.removeItem('ethos_user');
@@ -180,11 +180,11 @@ function checkAuth() {
         localStorage.removeItem('ethos_sim_started');
         localStorage.removeItem('ethos_active_scenario');
         localStorage.removeItem('ethos_chat_history');
-        
+
         State.setUser(null);
-        return false; 
+        return false;
     }
-    
+
     // Render Layout Parts
     renderSidebar();
     renderTopbar();
